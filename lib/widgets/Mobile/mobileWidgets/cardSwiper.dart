@@ -1,0 +1,91 @@
+import 'package:anillos_jalbac_flutter/cardList.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:card_swiper/card_swiper.dart';
+
+class CardSwiper extends StatefulWidget {
+  const CardSwiper({Key? key}) : super(key: key);
+  @override
+  _CardSwiperState createState() => _CardSwiperState();
+}
+
+class _CardSwiperState extends State<CardSwiper> {
+  @override
+  Widget build(BuildContext context) {
+    return Swiper(
+      onTap: (int index) => print('user tapped'),
+      itemBuilder: (BuildContext context, int index) {
+        const img1 = 'anilloNombre1.jpg';
+        const img2 = 'anilloNombre2.jpg';
+        return CartaConInfo(urlImage: 'img/${index == 1 ? img1 : img2}');
+      },
+      itemCount: listCards.length,
+      control: const SwiperControl(color: Colors.white),
+    );
+  }
+}
+
+class CartaConInfo extends StatefulWidget {
+  final String urlImage;
+  const CartaConInfo({super.key, required this.urlImage});
+
+  @override
+  State<CartaConInfo> createState() => _CartaConInfoState();
+}
+
+class _CartaConInfoState extends State<CartaConInfo> {
+  @override
+  Widget build(BuildContext context) {
+    final widthsize = MediaQuery.of(context).size.width;
+    final heigthsize = MediaQuery.of(context).size.height;
+    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    return Center(
+      child: Padding(
+          padding: EdgeInsets.all(32.0),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: 200,
+                  maxWidth: kIsWeb ? 700 : 300,
+                  minHeight: 300,
+                  maxHeight: kIsWeb ? 600 : 300,
+                ),
+                child: Container(
+                  width: widthsize,
+                  height: heigthsize,
+                  child: Image.asset(
+                    widget.urlImage,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: 200,
+                  maxWidth: kIsWeb ? 700 : 300,
+                  minHeight: 300,
+                  maxHeight: kIsWeb ? 600 : 300,
+                ),
+                child: Container(
+                  color: Colors.grey[900],
+                  width: widthsize,
+                  height: heigthsize,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text("Peso : "),
+                          Text("Peso : "),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )),
+    );
+  }
+}
