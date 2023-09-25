@@ -3,6 +3,7 @@ import 'package:anillos_jalbac_flutter/widgets/Mobile/MobileView.dart';
 import 'package:anillos_jalbac_flutter/widgets/Desktop/DesktopView.dart';
 
 void main() {
+  print('prueba');
   runApp(
     const MyApp(),
   );
