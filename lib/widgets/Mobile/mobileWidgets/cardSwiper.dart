@@ -38,21 +38,28 @@ class _CartaConInfoState extends State<CartaConInfo> {
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
     final heigthsize = MediaQuery.of(context).size.height;
-    var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    final Map<String, dynamic> anilloData = {
+      'Peso': '10gr',
+      'Nombre': 'Josue',
+      'Talla': '7',
+      'Referencia': '#100',
+      'Categoria': '3D'
+    };
+    final TextStyle textStyle = const TextStyle(fontSize: kIsWeb ? 30 : 20);
     return Center(
       child: Padding(
-          padding: EdgeInsets.all(32.0),
+          padding: const EdgeInsets.all(32.0),
           child: Wrap(
             alignment: WrapAlignment.center,
             children: [
               ConstrainedBox(
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   minWidth: 200,
-                  maxWidth: kIsWeb ? 700 : 300,
+                  maxWidth: kIsWeb ? 600 : 300,
                   minHeight: 300,
-                  maxHeight: kIsWeb ? 600 : 300,
+                  maxHeight: kIsWeb ? 500 : 300,
                 ),
-                child: Container(
+                child: SizedBox(
                   width: widthsize,
                   height: heigthsize,
                   child: Image.asset(
@@ -62,25 +69,53 @@ class _CartaConInfoState extends State<CartaConInfo> {
                 ),
               ),
               ConstrainedBox(
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   minWidth: 200,
-                  maxWidth: kIsWeb ? 700 : 300,
+                  maxWidth: kIsWeb ? 600 : 300,
                   minHeight: 300,
-                  maxHeight: kIsWeb ? 600 : 300,
+                  maxHeight: kIsWeb ? 500 : 300,
                 ),
                 child: Container(
                   color: Colors.grey[900],
                   width: widthsize,
                   height: heigthsize,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text("Peso : "),
-                          Text("Peso : "),
-                        ],
-                      )
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Row(
+                          children: [
+                            Text("Nombre : ", style: textStyle),
+                            Text(anilloData['Nombre'], style: textStyle),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text("Peso : ", style: textStyle),
+                            Text(anilloData['Peso'], style: textStyle),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text("Talla :", style: textStyle),
+                            Text(anilloData['Talla'], style: textStyle),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text("Referencia : ", style: textStyle),
+                            Text(anilloData['Referencia'], style: textStyle),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text("Categoria: ", style: textStyle),
+                            Text(anilloData['Categoria'], style: textStyle),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

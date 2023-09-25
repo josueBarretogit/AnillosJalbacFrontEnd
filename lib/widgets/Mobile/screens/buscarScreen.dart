@@ -23,13 +23,15 @@ class _BuscarScreenState extends State<BuscarScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Searchbar(),
             ConstrainedBox(
               constraints: BoxConstraints(
                 maxWidth: 1500,
                 minWidth: 900,
-                maxHeight: kIsWeb ? 1000 : 600,
+                maxHeight: kIsWeb ? 1000 : 700,
                 minHeight: 400,
               ),
               child: Container(
