@@ -1,4 +1,5 @@
 import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/cardSwiper.dart';
+import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/datosAnillo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/searchBar.dart';
