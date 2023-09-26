@@ -44,6 +44,9 @@ class _GenericCardState extends State<GenericCard> {
                       final route = MaterialPageRoute(
                         builder: (context) => BuscarScreen(
                           appBarTitle: widget.textToSearch,
+                          joyaABuscar: widget.textToSearch.contains('nombre')
+                              ? 'nombre'
+                              : 'dije',
                           key: Key("1"),
                         ),
                       );

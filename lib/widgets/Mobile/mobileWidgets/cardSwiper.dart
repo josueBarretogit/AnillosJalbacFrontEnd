@@ -6,7 +6,8 @@ import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/cartaConInfo
 
 class CardSwiper extends StatefulWidget {
   final String? filtro;
-  const CardSwiper({Key? key, this.filtro}) : super(key: key);
+  final String? joyaABuscar;
+  const CardSwiper({Key? key, this.filtro, this.joyaABuscar}) : super(key: key);
   @override
   _CardSwiperState createState() => _CardSwiperState();
 }
@@ -22,10 +23,12 @@ class _CardSwiperState extends State<CardSwiper> {
         return CartaConInfo(
           urlImage: 'img/${index == 1 ? img1 : img2}',
           filtro: widget.filtro,
+          joyaABuscar: widget.joyaABuscar,
         );
       },
       itemCount: listCards.length,
       control: const SwiperControl(color: Colors.white),
+      pagination: const SwiperPagination(),
     );
   }
 }

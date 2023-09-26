@@ -10,17 +10,10 @@ class Searchbar extends StatefulWidget {
 
 class _SearchbarState extends State<Searchbar> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final List<String> listaFiltros = [
-    'nombre',
-    'peso',
-    'medida',
-    'referencia',
-    'categoria'
-  ];
+  final List<String> listaFiltros = ['nombre', 'peso', 'medida', 'categoria'];
   var filtrandoPor = 'Nombre';
   @override
   Widget build(BuildContext context) {
-    final widthsize = MediaQuery.sizeOf(context).width;
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 25, 5, 5),
       child: Form(
@@ -37,7 +30,7 @@ class _SearchbarState extends State<Searchbar> {
                     data:
                         Theme.of(context).copyWith(cardColor: Colors.grey[900]),
                     child: Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                      margin: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: PopupMenuButton(
                           icon: const Icon(
                             Icons.menu,
@@ -46,7 +39,8 @@ class _SearchbarState extends State<Searchbar> {
                           offset: const Offset(0, 40),
                           itemBuilder: (BuildContext context) {
                             return listaFiltros
-                                .map((String filtro) => PopupMenuItem(
+                                .map(
+                                  (String filtro) => PopupMenuItem(
                                     onTap: () {
                                       setState(() {
                                         filtrandoPor = filtro;
@@ -54,13 +48,15 @@ class _SearchbarState extends State<Searchbar> {
                                     },
                                     child: Text(filtro,
                                         style: const TextStyle(
-                                            color: Colors.white))))
+                                            color: Colors.white)),
+                                  ),
+                                )
                                 .toList();
                           }),
                     ),
                   ),
                 ),
-                Flexible(
+                const Flexible(
                   flex: 1,
                   child: SizedBox(
                     height: 40,
