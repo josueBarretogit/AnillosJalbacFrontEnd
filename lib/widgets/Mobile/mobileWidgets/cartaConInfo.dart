@@ -2,6 +2,7 @@ import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/datosAnillo.
 import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/datosDije.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 
 class CartaConInfo extends StatefulWidget {
   final String urlImage;
@@ -16,6 +17,11 @@ class CartaConInfo extends StatefulWidget {
 
 class _CartaConInfoState extends State<CartaConInfo> {
   @override
+  late Anillo datos;
+  Future<void> getElAnillo() async {
+    datos = await getAnillo(17);
+  }
+
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
     final heigthsize = MediaQuery.of(context).size.height;
@@ -54,12 +60,7 @@ class _CartaConInfoState extends State<CartaConInfo> {
                 height: heigthsize,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: widget.joyaABuscar == 'nombre'
-                        ? datosAnillo
-                        : datosDije,
-                  ),
+                  child: DatosAnillo(),
                 ),
               ),
             ),
