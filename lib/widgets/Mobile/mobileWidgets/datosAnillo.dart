@@ -5,6 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+List<dynamic> storeListAnillos(String arrayAnillos) {
+  final List<Anillo> listaAnillos = [];
+  for (var anillo in jsonDecode(arrayAnillos)) {
+    print(anillo);
+    final anilloParsed = Anillo.fromJson(anillo);
+    listaAnillos.add(anilloParsed);
+  }
+  return listaAnillos;
+}
+
 Future<Anillo> getAnillo(int id) async {
   final response = await http.post(
     Uri.parse('http://10.0.2.2:4000/api/anillos/getone'),
@@ -17,13 +27,23 @@ Future<Anillo> getAnillo(int id) async {
   );
 
   if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    print(response.body);
     return Anillo.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
+    throw Exception('Failed to load anillo');
+  }
+}
+
+Future<void> getAnillos() async {
+  final response = await http.get(
+    Uri.parse('http://10.0.2.2:4000/api/anillos'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    print(storeListAnillos(response.body)[0]);
+  } else {
     throw Exception('Failed to load anillo');
   }
 }
@@ -43,6 +63,7 @@ class _DatosAnilloState extends State<DatosAnillo> {
   void initState() {
     super.initState();
     futureAnillo = getAnillo(17);
+    getAnillos();
   }
 
   Widget build(BuildContext context) {

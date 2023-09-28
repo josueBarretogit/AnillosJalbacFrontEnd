@@ -17,11 +17,6 @@ class CartaConInfo extends StatefulWidget {
 
 class _CartaConInfoState extends State<CartaConInfo> {
   @override
-  late Anillo datos;
-  Future<void> getElAnillo() async {
-    datos = await getAnillo(17);
-  }
-
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
     final heigthsize = MediaQuery.of(context).size.height;
