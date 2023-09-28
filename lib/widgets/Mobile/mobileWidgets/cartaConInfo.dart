@@ -8,8 +8,13 @@ class CartaConInfo extends StatefulWidget {
   final String urlImage;
   final String? filtro;
   final String? joyaABuscar;
+  final Anillo anillo;
   const CartaConInfo(
-      {super.key, required this.urlImage, this.filtro, this.joyaABuscar});
+      {super.key,
+      required this.urlImage,
+      this.filtro,
+      this.joyaABuscar,
+      required this.anillo});
 
   @override
   State<CartaConInfo> createState() => _CartaConInfoState();
@@ -55,7 +60,9 @@ class _CartaConInfoState extends State<CartaConInfo> {
                 height: heigthsize,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: DatosAnillo(),
+                  child: DatosAnillo(
+                    anillo: widget.anillo,
+                  ),
                 ),
               ),
             ),
