@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 
+final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
+
 List<Anillo> storeListAnillos(String arrayAnillos) {
   final List<Anillo> listaAnillos = [];
   for (var anillo in jsonDecode(arrayAnillos)) {
@@ -33,13 +35,14 @@ Future<Anillo> getAnillo(int id) async {
 
 Future<List<Anillo>?> getAnillos() async {
   final response = await http.get(
-    Uri.parse('http://10.0.2.2:4000/api/anillos'),
+    Uri.parse('http://$urlDev:4000/api/anillos'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
   );
 
   if (response.statusCode == 200) {
+    print(jsonDecode(response.body));
     return storeListAnillos(response.body);
   } else {
     throw Exception('Failed to load anillos');
@@ -66,20 +69,28 @@ class _DatosAnilloState extends State<DatosAnillo> {
       children: [
         Row(
           children: [
-            Text("Nombre : ", style: textStyle),
-            Text(widget.anillo.nombre, style: textStyle),
+            Expanded(child: Text("Nombre : ", style: textStyle)),
+            Expanded(child: Text(widget.anillo.nombre, style: textStyle)),
           ],
         ),
         Row(
           children: [
-            Text("Talla: ", style: textStyle),
-            Text(widget.anillo.talla, style: textStyle),
+            Expanded(child: Text("Talla: ", style: textStyle)),
+            Expanded(child: Text(widget.anillo.talla, style: textStyle)),
           ],
         ),
         Row(
           children: [
-            Text("Referencia : ", style: textStyle),
-            Text(widget.anillo.referencia, style: textStyle),
+            Expanded(child: Text("Peso oro: ", style: textStyle)),
+            Expanded(
+                child:
+                    Text(widget.anillo.pesos![0]['pesoOro'], style: textStyle)),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Text("Referencia : ", style: textStyle)),
+            Expanded(child: Text(widget.anillo.referencia, style: textStyle)),
           ],
         ),
         Row(

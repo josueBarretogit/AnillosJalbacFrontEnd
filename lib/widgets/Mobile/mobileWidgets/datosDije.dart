@@ -1,53 +1,93 @@
-import 'package:flutter/material.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
+import 'package:anillos_jalbac_flutter/model/dije.dart';
 
-final Map<String, dynamic> dijeData = {
-  'Alto': '15mm',
-  'Ancho': '30mm',
-  'Peso': '5gr',
-  'PesoPlata': '7gr',
-  'Referencia': '#100',
-  'Categoria': 'Virgen'
-};
+final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
 
-final TextStyle textStyle = const TextStyle(fontSize: kIsWeb ? 30 : 20);
+List<Dije> storeListDijes(String arrayDijes) {
+  final List<Dije> listaDijes = [];
+  for (var dije in jsonDecode(arrayDijes)) {
+    final dijeParsed = Dije.fromJson(dije);
+    listaDijes.add(dijeParsed);
+  }
+  return listaDijes;
+}
 
-final List<Widget> datosDije = [
-  Row(
-    children: [
-      Text("Alto : ", style: textStyle),
-      Text(dijeData['Alto'], style: textStyle),
-    ],
-  ),
-  Row(
-    children: [
-      Text("Ancho: ", style: textStyle),
-      Text(dijeData['Ancho'], style: textStyle),
-    ],
-  ),
-  Row(
-    children: [
-      Text("Peso: ", style: textStyle),
-      Text(dijeData['Peso'], style: textStyle),
-    ],
-  ),
-  Row(
-    children: [
-      Text("Peso plata : ", style: textStyle),
-      Text(dijeData['PesoPlata'], style: textStyle),
-    ],
-  ),
-  Row(
-    children: [
-      Text("Referencia : ", style: textStyle),
-      Text(dijeData['Referencia'], style: textStyle),
-    ],
-  ),
-  Row(
-    children: [
-      Text("Categoria: ", style: textStyle),
-      Text(dijeData['Categoria'], style: textStyle),
-    ],
-  )
-];
+Future<List<Dije>?> getDijes() async {
+  final response = await http.get(
+    Uri.parse('http://$urlDev:4000/api/dijes'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    print(jsonDecode(response.body));
+    return storeListDijes(response.body);
+  } else {
+    throw Exception('Failed to load anillos');
+  }
+}
+
+class DatosDije extends StatefulWidget {
+  final Dije dije;
+  const DatosDije({super.key, required this.dije});
+
+  @override
+  State<DatosDije> createState() => _DatosDijeState();
+}
+
+class _DatosDijeState extends State<DatosDije> {
+  @override
+  Widget build(BuildContext context) {
+    final TextStyle textStyle = const TextStyle(
+      fontSize: kIsWeb ? 30 : 20,
+    );
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            Expanded(child: Text("Altura : ", style: textStyle)),
+            Expanded(child: Text(widget.dije.alto, style: textStyle)),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Text("Anchura: ", style: textStyle)),
+            Expanded(child: Text(widget.dije.ancho, style: textStyle)),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Text("Peso oro: ", style: textStyle)),
+            Expanded(
+                child:
+                    Text(widget.dije.pesos![0]['pesoOro'], style: textStyle)),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Text("Referencia : ", style: textStyle)),
+            Expanded(child: Text(widget.dije.referencia, style: textStyle)),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                "Categoria: ",
+                style: textStyle,
+                overflow: TextOverflow.clip,
+              ),
+            ),
+            Expanded(child: Text(widget.dije.categoria, style: textStyle)),
+          ],
+        )
+      ],
+    );
+  }
+}
