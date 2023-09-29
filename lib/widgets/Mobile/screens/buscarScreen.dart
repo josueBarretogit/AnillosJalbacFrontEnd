@@ -15,10 +15,12 @@ class BuscarScreen extends StatefulWidget {
 }
 
 class _BuscarScreenState extends State<BuscarScreen> {
+  bool isRefreshed = false;
   @override
   Widget build(BuildContext context) {
     final heigthsize = MediaQuery.sizeOf(context).height;
     final widthsize = MediaQuery.sizeOf(context).width;
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
@@ -27,7 +29,11 @@ class _BuscarScreenState extends State<BuscarScreen> {
       body: RefreshIndicator(
         strokeWidth: 4.0,
         onRefresh: () async {
-          return Future<void>.delayed(const Duration(seconds: 3));
+          return Future<void>.delayed(const Duration(seconds: 3), () {
+            setState(() {
+              isRefreshed = true;
+            });
+          });
         },
         child: SingleChildScrollView(
           child: Column(
@@ -48,6 +54,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
                   child: CardSwiper(
                     filtro: 'nombre',
                     joyaABuscar: widget.joyaABuscar,
+                    isRefresh: isRefreshed,
                   ),
                 ),
               ),
