@@ -1,5 +1,6 @@
+import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:provider/provider.dart';
 
 class Searchbar extends StatefulWidget {
   const Searchbar({super.key});
@@ -13,24 +14,12 @@ class _SearchbarState extends State<Searchbar> {
   final List<String> listaFiltros = ['nombre', 'peso', 'medida', 'categoria'];
   String filtrandoPor = 'nombre';
   final searchQueryController = TextEditingController();
-  String searchTerm = '';
-  @override
-  void initState() {
-    super.initState();
-
-    searchQueryController.addListener(_showSearchQuery);
-  }
-
-  @override
-  void _showSearchQuery() {
-    print('changed: ${searchQueryController.text}');
-    setState(() {
-      searchTerm = searchQueryController.text;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final SearchQueryProvider searchProvider =
+        Provider.of<SearchQueryProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 25, 5, 5),
       child: Form(
@@ -79,6 +68,9 @@ class _SearchbarState extends State<Searchbar> {
                     height: 40,
                     child: TextField(
                       controller: searchQueryController,
+                      onChanged: (String text) {
+                        searchProvider.setSearchQuery(text);
+                      },
                       decoration: InputDecoration(
                         hintText: '#100',
                         fillColor: Colors.white,
@@ -89,7 +81,7 @@ class _SearchbarState extends State<Searchbar> {
                 ),
               ],
             ),
-            Text(searchTerm),
+            Text(''),
           ],
         ),
       ),
