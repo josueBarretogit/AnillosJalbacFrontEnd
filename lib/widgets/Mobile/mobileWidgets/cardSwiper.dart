@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/cartaConInfo.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
+import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
+import 'package:provider/provider.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -36,14 +38,27 @@ class _CardSwiperState extends State<CardSwiper> {
         widget.joyaABuscar!.contains('nombre') ? getAnillos() : getDijes();
   }
 
+  List<dynamic>? filterData(String searchTerm, List<dynamic>? data) {
+    if (searchTerm.isEmpty) {
+      return data;
+    }
+    return data!.where((dynamic joya) {
+      return joya.nombre == searchTerm || joya.talla == searchTerm;
+    }).toList();
+  }
+
   Widget build(BuildContext context) {
     refresh();
+    final searchProvider = Provider.of<SearchQueryProvider>(context);
     return FutureBuilder<dynamic>(
         future: futureAnillos,
         builder: (contex, snapshot) {
           if (snapshot.hasData) {
+            final int? cantidadAnillos =
+                filterData(searchProvider.searchedQueried, snapshot.data!)!
+                    .length;
+
             return Swiper(
-              onTap: (int index) => print('user tapped'),
               itemBuilder: (BuildContext context, int index) {
                 const img1 = 'anilloNombre1.jpg';
                 const img2 = 'anilloNombre2.jpg';
@@ -54,7 +69,7 @@ class _CardSwiperState extends State<CardSwiper> {
                   joya: snapshot.data![index],
                 );
               },
-              itemCount: snapshot.data!.length,
+              itemCount: cantidadAnillos ?? snapshot.data!.length,
               control: const SwiperControl(color: Colors.white),
               pagination: const SwiperPagination(),
             );

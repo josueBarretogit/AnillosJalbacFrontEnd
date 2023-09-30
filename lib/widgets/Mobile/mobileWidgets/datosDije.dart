@@ -24,7 +24,6 @@ Future<List<Dije>?> getDijes() async {
   );
 
   if (response.statusCode == 200) {
-    print(jsonDecode(response.body));
     return storeListDijes(response.body);
   } else {
     throw Exception('Failed to load anillos');

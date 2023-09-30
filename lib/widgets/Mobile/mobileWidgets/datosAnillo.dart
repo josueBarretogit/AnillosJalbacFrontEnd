@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
+import 'package:provider/provider.dart';
+import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 
 final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
 
@@ -42,7 +44,6 @@ Future<List<Anillo>?> getAnillos() async {
   );
 
   if (response.statusCode == 200) {
-    print(jsonDecode(response.body));
     return storeListAnillos(response.body);
   } else {
     throw Exception('Failed to load anillos');
@@ -63,6 +64,7 @@ class _DatosAnilloState extends State<DatosAnillo> {
     final TextStyle textStyle = const TextStyle(
       fontSize: kIsWeb ? 30 : 20,
     );
+    final searchProvider = Provider.of<SearchQueryProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.min,

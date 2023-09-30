@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SearchQueryProvider extends ChangeNotifier {
-  String? searchTerm = '';
+  SearchQueryProvider();
+  String searchTerm = '';
 
-  String? get searchedQueried => searchTerm;
+  String get searchedQueried => searchTerm;
 
-  set setSearchQuery(String search) {
+  void setSearchQuery(String search) {
     searchTerm = search;
+    notifyListeners();
   }
 }
