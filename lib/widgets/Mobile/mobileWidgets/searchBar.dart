@@ -11,7 +11,24 @@ class Searchbar extends StatefulWidget {
 class _SearchbarState extends State<Searchbar> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final List<String> listaFiltros = ['nombre', 'peso', 'medida', 'categoria'];
-  var filtrandoPor = 'Nombre';
+  String filtrandoPor = 'nombre';
+  final searchQueryController = TextEditingController();
+  String searchTerm = '';
+  @override
+  void initState() {
+    super.initState();
+
+    searchQueryController.addListener(_showSearchQuery);
+  }
+
+  @override
+  void _showSearchQuery() {
+    print('changed: ${searchQueryController.text}');
+    setState(() {
+      searchTerm = searchQueryController.text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -56,11 +73,12 @@ class _SearchbarState extends State<Searchbar> {
                     ),
                   ),
                 ),
-                const Flexible(
+                Flexible(
                   flex: 1,
                   child: SizedBox(
                     height: 40,
                     child: TextField(
+                      controller: searchQueryController,
                       decoration: InputDecoration(
                         hintText: '#100',
                         fillColor: Colors.white,
@@ -71,7 +89,7 @@ class _SearchbarState extends State<Searchbar> {
                 ),
               ],
             ),
-            Text('Filtrando por: $filtrandoPor'),
+            Text(searchTerm),
           ],
         ),
       ),

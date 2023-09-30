@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/widgets/Mobile/MobileView.dart';
-import 'package:anillos_jalbac_flutter/widgets/Desktop/DesktopView.dart';
 
 void main() {
   runApp(
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.white, fontSize: 20),
         ),
         primaryColor: Colors.black,
-        appBarTheme: AppBarTheme(color: Colors.grey[900]),
+        appBarTheme: AppBarTheme(color: Colors.grey[900], centerTitle: true),
         cardTheme: CardTheme(
           color: Colors.grey[900],
           elevation: 10,
@@ -32,16 +31,10 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(title: Text("Anillos Jalbac")),
         backgroundColor: Colors.black,
         body: SafeArea(
-          child: RefreshIndicator(
-            strokeWidth: 4.0,
-            onRefresh: () async {
-              return Future<void>.delayed(const Duration(seconds: 3));
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints boxConstraints) {
+              return MobileView();
             },
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints boxConstraints) {
-                return MobileView();
-              },
-            ),
           ),
         ),
       ),
