@@ -1,3 +1,5 @@
+import 'package:anillos_jalbac_flutter/model/Anillo.dart';
+import 'package:anillos_jalbac_flutter/model/dije.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/cardSwiper.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/cartaConInfo.dart';
@@ -37,14 +39,19 @@ class _BuscarScreenState extends State<BuscarScreen> {
       return data;
     }
     searchTerm = searchTerm.toLowerCase();
-
     return data!.where((dynamic joya) {
-      return joya.nombre.toLowerCase() == searchTerm ||
-          joya.talla.toLowerCase() == searchTerm ||
-          joya.categoria.toLowerCase() == searchTerm ||
-          joya.alto.toLowerCase() == searchTerm ||
-          joya.ancho.toLowerCase() == searchTerm ||
-          joya.referencia.toLowerCase() == searchTerm;
+      if (joya is Anillo) {
+        return joya.nombre.toLowerCase().contains(searchTerm) ||
+            joya.referencia.toLowerCase().contains(searchTerm) ||
+            joya.categoria.toLowerCase().contains(searchTerm) ||
+            joya.talla.toLowerCase().contains(searchTerm);
+      } else if (joya is Dije) {
+        return joya.alto.toLowerCase().contains(searchTerm) ||
+            joya.ancho.toLowerCase().contains(searchTerm) ||
+            joya.categoria.toLowerCase().contains(searchTerm) ||
+            joya.referencia.toLowerCase().contains(searchTerm);
+      }
+      return false;
     }).toList();
   }
 
