@@ -1,21 +1,20 @@
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
-import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/datosAnillo.dart';
-import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/datosDije.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 import 'package:provider/provider.dart';
 
 class CartaConInfo extends StatefulWidget {
   final String urlImage;
   final String? filtro;
-  final String? joyaABuscar;
+  final String joyaABuscar;
   final dynamic joya;
   const CartaConInfo(
       {super.key,
       required this.urlImage,
       this.filtro,
-      this.joyaABuscar,
+      required this.joyaABuscar,
       required this.joya});
 
   @override
@@ -38,9 +37,9 @@ class _CartaConInfoState extends State<CartaConInfo> {
             ConstrainedBox(
               constraints: const BoxConstraints(
                 minWidth: 200,
-                maxWidth: kIsWeb ? 600 : 300,
+                maxWidth: 300,
                 minHeight: 300,
-                maxHeight: kIsWeb ? 500 : 300,
+                maxHeight: 300,
               ),
               child: SizedBox(
                 width: widthsize,
@@ -54,9 +53,9 @@ class _CartaConInfoState extends State<CartaConInfo> {
             ConstrainedBox(
               constraints: const BoxConstraints(
                 minWidth: 200,
-                maxWidth: kIsWeb ? 600 : 300,
+                maxWidth: 300,
                 minHeight: 300,
-                maxHeight: kIsWeb ? 500 : 300,
+                maxHeight: 300,
               ),
               child: Container(
                 color: Colors.grey[900],

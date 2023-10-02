@@ -1,4 +1,4 @@
-import 'package:anillos_jalbac_flutter/cardList.dart';
+import 'package:anillos_jalbac_flutter/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

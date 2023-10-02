@@ -1,9 +1,13 @@
-import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/cardSwiper.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/cardSwiper.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/cartaConInfo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:anillos_jalbac_flutter/widgets/Mobile/mobileWidgets/searchBar.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/searchBar.dart';
 import 'package:provider/provider.dart';
+
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 
 class BuscarScreen extends StatefulWidget {
   final String appBarTitle;
@@ -17,8 +21,14 @@ class BuscarScreen extends StatefulWidget {
 
 class _BuscarScreenState extends State<BuscarScreen> {
   bool isRefreshed = false;
-  final prueba = Future<List<String>>.delayed(
-      const Duration(seconds: 2), () => ['hola', 'adios']);
+
+  late Future<dynamic> futureJoyas;
+
+  @override
+  void initState() {
+    super.initState();
+    futureJoyas = getAnillos();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,21 +51,31 @@ class _BuscarScreenState extends State<BuscarScreen> {
         child: ChangeNotifierProvider<SearchQueryProvider>(
           create: (context) => SearchQueryProvider(),
           child: SingleChildScrollView(
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              children: [
-                Searchbar(),
-                FutureBuilder<dynamic>(
-                  future: prueba,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final Future<List<String>> datos = snapshot.data;
-                      return Text(snapshot.data);
-                    }
-                    return CircularProgressIndicator();
-                  },
-                )
-              ],
+            child: FutureBuilder<dynamic>(
+              future: futureJoyas,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final List<dynamic> datos = snapshot.data as List<dynamic>;
+                  return Wrap(
+                    alignment: WrapAlignment.center,
+                    children: [
+                      Searchbar(),
+                      for (var joya in datos)
+                        CartaConInfo(
+                          urlImage: 'img/anilloNombre1.jpg',
+                          joya: joya,
+                          joyaABuscar: widget.joyaABuscar,
+                        ),
+                    ],
+                  );
+                } else if (snapshot.hasError) return Text('${snapshot.error}');
+                return Center(
+                  child: LoadingAnimationWidget.discreteCircle(
+                    color: Colors.white,
+                    size: 100,
+                  ),
+                );
+              },
             ),
           ),
         ),

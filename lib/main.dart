@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:anillos_jalbac_flutter/widgets/Mobile/MobileView.dart';
+import 'package:anillos_jalbac_flutter/MobileView.dart';
 
 void main() {
   runApp(

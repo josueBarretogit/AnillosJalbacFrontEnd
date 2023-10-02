@@ -1,4 +1,4 @@
-import 'package:anillos_jalbac_flutter/widgets/genericCard.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/genericCard.dart';
 
 const List<String> listTitles = [
   'Anillo de nombre',

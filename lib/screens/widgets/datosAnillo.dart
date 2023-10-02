@@ -62,7 +62,7 @@ class _DatosAnilloState extends State<DatosAnillo> {
   @override
   Widget build(BuildContext context) {
     final TextStyle textStyle = const TextStyle(
-      fontSize: kIsWeb ? 30 : 20,
+      fontSize: 20,
     );
     final searchProvider = Provider.of<SearchQueryProvider>(context);
     return Column(

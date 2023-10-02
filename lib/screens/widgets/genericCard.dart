@@ -1,4 +1,4 @@
-import 'package:anillos_jalbac_flutter/widgets/Mobile/screens/buscarScreen.dart';
+import 'package:anillos_jalbac_flutter/screens/buscarScreen.dart';
 import 'package:flutter/material.dart';
 
 class GenericCard extends StatefulWidget {
