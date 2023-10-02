@@ -17,11 +17,13 @@ class BuscarScreen extends StatefulWidget {
 
 class _BuscarScreenState extends State<BuscarScreen> {
   bool isRefreshed = false;
+  final prueba = Future<List<String>>.delayed(
+      const Duration(seconds: 2), () => ['hola', 'adios']);
+
   @override
   Widget build(BuildContext context) {
     final heigthsize = MediaQuery.sizeOf(context).height;
     final widthsize = MediaQuery.sizeOf(context).width;
-
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
@@ -39,28 +41,20 @@ class _BuscarScreenState extends State<BuscarScreen> {
         child: ChangeNotifierProvider<SearchQueryProvider>(
           create: (context) => SearchQueryProvider(),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Wrap(
+              alignment: WrapAlignment.center,
               children: [
                 Searchbar(),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: 1500,
-                    minWidth: 900,
-                    maxHeight: kIsWeb ? 1000 : 700,
-                    minHeight: 400,
-                  ),
-                  child: Container(
-                    width: widthsize,
-                    height: heigthsize,
-                    child: CardSwiper(
-                      filtro: 'nombre',
-                      joyaABuscar: widget.joyaABuscar,
-                      isRefresh: isRefreshed,
-                    ),
-                  ),
-                ),
+                FutureBuilder<dynamic>(
+                  future: prueba,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final Future<List<String>> datos = snapshot.data;
+                      return Text(snapshot.data);
+                    }
+                    return CircularProgressIndicator();
+                  },
+                )
               ],
             ),
           ),
@@ -69,3 +63,21 @@ class _BuscarScreenState extends State<BuscarScreen> {
     );
   }
 }
+
+// ConstrainedBox(
+//                   constraints: BoxConstraints(
+//                     maxWidth: 1500,
+//                     minWidth: 900,
+//                     maxHeight: kIsWeb ? 1000 : 700,
+//                     minHeight: 400,
+//                   ),
+//                   child: Container(
+//                     width: widthsize,
+//                     height: heigthsize,
+//                     child: CardSwiper(
+//                       filtro: 'nombre',
+//                       joyaABuscar: widget.joyaABuscar,
+//                       isRefresh: isRefreshed,
+//                     ),
+//                   ),
+//                 ),
