@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 import 'package:provider/provider.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
+import 'package:anillos_jalbac_flutter/constants.dart';
 
 final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
 
@@ -61,10 +62,6 @@ class DatosAnillo extends StatefulWidget {
 class _DatosAnilloState extends State<DatosAnillo> {
   @override
   Widget build(BuildContext context) {
-    final TextStyle textStyle = const TextStyle(
-      fontSize: 20,
-    );
-    final searchProvider = Provider.of<SearchQueryProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.min,

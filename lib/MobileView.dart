@@ -12,7 +12,6 @@ class MobileView extends StatefulWidget {
 class _MobileViewState extends State<MobileView> {
   @override
   Widget build(BuildContext context) {
-    final widthsize = MediaQuery.sizeOf(context).width;
     return ListView(
       children: [
         Wrap(

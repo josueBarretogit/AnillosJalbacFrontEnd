@@ -1,6 +1,7 @@
 import 'package:anillos_jalbac_flutter/screens/widgets/cardSwiper.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/cartaConInfo.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/searchBar.dart';
@@ -27,13 +28,28 @@ class _BuscarScreenState extends State<BuscarScreen> {
   @override
   void initState() {
     super.initState();
-    futureJoyas = getAnillos();
+    futureJoyas =
+        widget.joyaABuscar.contains('nombre') ? getAnillos() : getDijes();
+  }
+
+  List<dynamic>? filterData(String searchTerm, List<dynamic>? data) {
+    if (searchTerm.isEmpty) {
+      return data;
+    }
+    searchTerm = searchTerm.toLowerCase();
+
+    return data!.where((dynamic joya) {
+      return joya.nombre.toLowerCase() == searchTerm ||
+          joya.talla.toLowerCase() == searchTerm ||
+          joya.categoria.toLowerCase() == searchTerm ||
+          joya.alto.toLowerCase() == searchTerm ||
+          joya.ancho.toLowerCase() == searchTerm ||
+          joya.referencia.toLowerCase() == searchTerm;
+    }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final heigthsize = MediaQuery.sizeOf(context).height;
-    final widthsize = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
@@ -55,17 +71,25 @@ class _BuscarScreenState extends State<BuscarScreen> {
               future: futureJoyas,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  final List<dynamic> datos = snapshot.data as List<dynamic>;
+                  final searchTerm =
+                      Provider.of<SearchQueryProvider>(context).searchedQueried;
+                  final List<dynamic> datos =
+                      filterData(searchTerm, snapshot.data) as List<dynamic>;
+
                   return Wrap(
                     alignment: WrapAlignment.center,
                     children: [
                       Searchbar(),
-                      for (var joya in datos)
-                        CartaConInfo(
-                          urlImage: 'img/anilloNombre1.jpg',
-                          joya: joya,
-                          joyaABuscar: widget.joyaABuscar,
-                        ),
+                      if (datos.isEmpty)
+                        Text('No se encontro datos')
+                      else
+                        ...datos
+                            .map((joya) => CartaConInfo(
+                                  urlImage: 'img/anilloNombre1.jpg',
+                                  joya: joya,
+                                  joyaABuscar: widget.joyaABuscar,
+                                ))
+                            .toList(),
                     ],
                   );
                 } else if (snapshot.hasError) return Text('${snapshot.error}');
@@ -83,21 +107,3 @@ class _BuscarScreenState extends State<BuscarScreen> {
     );
   }
 }
-
-// ConstrainedBox(
-//                   constraints: BoxConstraints(
-//                     maxWidth: 1500,
-//                     minWidth: 900,
-//                     maxHeight: kIsWeb ? 1000 : 700,
-//                     minHeight: 400,
-//                   ),
-//                   child: Container(
-//                     width: widthsize,
-//                     height: heigthsize,
-//                     child: CardSwiper(
-//                       filtro: 'nombre',
-//                       joyaABuscar: widget.joyaABuscar,
-//                       isRefresh: isRefreshed,
-//                     ),
-//                   ),
-//                 ),

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/dije.dart';
+import 'package:anillos_jalbac_flutter/constants.dart';
 
 final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
 
@@ -41,9 +42,6 @@ class DatosDije extends StatefulWidget {
 class _DatosDijeState extends State<DatosDije> {
   @override
   Widget build(BuildContext context) {
-    final TextStyle textStyle = const TextStyle(
-      fontSize: kIsWeb ? 30 : 20,
-    );
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.min,
