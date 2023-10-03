@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 const List<String> listTitles = [
   'Anillo de nombre',
   'Dijes',
+  'Solitarios',
 ];
 
 final List<GenericCard> listCards = listTitles.map((title) {

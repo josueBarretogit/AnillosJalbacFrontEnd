@@ -46,7 +46,11 @@ class _GenericCardState extends State<GenericCard> {
                           appBarTitle: widget.textToSearch,
                           joyaABuscar: widget.textToSearch.contains('nombre')
                               ? 'nombre'
-                              : 'dije',
+                              : widget.textToSearch
+                                      .toLowerCase()
+                                      .contains('solitario')
+                                  ? 'solitario'
+                                  : 'dije',
                           key: Key("1"),
                         ),
                       );

@@ -1,14 +1,13 @@
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 import 'package:anillos_jalbac_flutter/model/dije.dart';
-import 'package:anillos_jalbac_flutter/screens/widgets/cardSwiper.dart';
+import 'package:anillos_jalbac_flutter/model/solitario.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/cartaConInfo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
-import 'package:flutter/foundation.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/datosSolitario.dart';
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/searchBar.dart';
 import 'package:provider/provider.dart';
-
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 
@@ -30,8 +29,11 @@ class _BuscarScreenState extends State<BuscarScreen> {
   @override
   void initState() {
     super.initState();
-    futureJoyas =
-        widget.joyaABuscar.contains('nombre') ? getAnillos() : getDijes();
+    futureJoyas = widget.joyaABuscar.contains('nombre')
+        ? getAnillos()
+        : widget.joyaABuscar.contains('solitario')
+            ? getSolitarios()
+            : getDijes();
   }
 
   List<dynamic>? filterData(String searchTerm, List<dynamic>? data) {
@@ -49,6 +51,12 @@ class _BuscarScreenState extends State<BuscarScreen> {
         return joya.alto.toLowerCase().contains(searchTerm) ||
             joya.ancho.toLowerCase().contains(searchTerm) ||
             joya.categoria.toLowerCase().contains(searchTerm) ||
+            joya.referencia.toLowerCase().contains(searchTerm);
+      } else if (joya is Solitario) {
+        return joya.referencia.toLowerCase().contains(searchTerm) ||
+            joya.tamanoPiedra.toLowerCase().contains(searchTerm) ||
+            joya.formaPiedra.toLowerCase().contains(searchTerm) ||
+            joya.talla.toLowerCase().contains(searchTerm) ||
             joya.referencia.toLowerCase().contains(searchTerm);
       }
       return false;

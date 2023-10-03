@@ -1,6 +1,7 @@
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/datosSolitario.dart';
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 import 'package:provider/provider.dart';
@@ -55,20 +56,20 @@ class _CartaConInfoState extends State<CartaConInfo> {
                 minWidth: 200,
                 maxWidth: 300,
                 minHeight: 300,
-                maxHeight: 300,
               ),
               child: Container(
                 color: Colors.grey[900],
                 width: widthsize,
                 height: heigthsize,
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: widget.joyaABuscar == 'nombre'
-                      ? DatosAnillo(
-                          anillo: widget.joya,
-                        )
-                      : DatosDije(dije: widget.joya),
-                ),
+                    padding: const EdgeInsets.all(15.0),
+                    child: widget.joyaABuscar == 'nombre'
+                        ? DatosAnillo(
+                            anillo: widget.joya,
+                          )
+                        : widget.joyaABuscar == 'solitario'
+                            ? DatosSolitario(solitario: widget.joya)
+                            : DatosDije(dije: widget.joya)),
               ),
             ),
           ],
