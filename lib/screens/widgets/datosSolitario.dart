@@ -60,54 +60,52 @@ class DatosSolitario extends StatefulWidget {
 class _DatosSolitarioState extends State<DatosSolitario> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
-            Expanded(
-                child: Text(widget.solitario.tamanoPiedra, style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(child: Text("Forma piedra: ", style: textStyle)),
-            Expanded(
-                child: Text(widget.solitario.formaPiedra, style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(child: Text("Peso oro: ", style: textStyle)),
-            Expanded(child: Text(widget.solitario.pesoOro, style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(child: Text("Peso plata: ", style: textStyle)),
-            Expanded(child: Text(widget.solitario.pesoPlata, style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                "Categoria: ",
-                style: textStyle,
-                overflow: TextOverflow.clip,
-              ),
-            ),
-            Expanded(
-                child: Text(widget.solitario.referencia, style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(child: Text("Talla: ", style: textStyle)),
-            Expanded(child: Text(widget.solitario.talla, style: textStyle)),
-          ],
-        ),
-      ],
+    return Wrap(
+      runSpacing: 20.0,
+      children: rowinColumn(solitario: widget.solitario).datosJoya(),
     );
+  }
+}
+
+class rowinColumn {
+  const rowinColumn({
+    required this.solitario,
+  });
+
+  final Solitario solitario;
+
+  List<Widget> datosJoya() {
+    return [
+      Row(
+        children: [
+          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
+          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+        ],
+      ),
+      Row(
+        children: [
+          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
+          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+        ],
+      ),
+      Row(
+        children: [
+          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
+          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+        ],
+      ),
+      Row(
+        children: [
+          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
+          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+        ],
+      ),
+      Row(
+        children: [
+          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
+          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+        ],
+      ),
+    ];
   }
 }

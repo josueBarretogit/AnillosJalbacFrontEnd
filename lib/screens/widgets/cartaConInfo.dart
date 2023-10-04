@@ -40,11 +40,9 @@ class _CartaConInfoState extends State<CartaConInfo> {
                 minWidth: 200,
                 maxWidth: 300,
                 minHeight: 300,
-                maxHeight: 300,
               ),
               child: SizedBox(
                 width: widthsize,
-                height: heigthsize,
                 child: Image.asset(
                   widget.urlImage,
                   fit: BoxFit.fill,
@@ -60,7 +58,6 @@ class _CartaConInfoState extends State<CartaConInfo> {
               child: Container(
                 color: Colors.grey[900],
                 width: widthsize,
-                height: heigthsize,
                 child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: widget.joyaABuscar == 'nombre'

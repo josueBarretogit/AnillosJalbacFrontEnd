@@ -65,56 +65,59 @@ class _BuscarScreenState extends State<BuscarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        title: Text(widget.appBarTitle),
-      ),
-      body: RefreshIndicator(
-        strokeWidth: 4.0,
-        onRefresh: () async {
-          return Future<void>.delayed(const Duration(seconds: 3), () {
-            setState(() {
-              isRefreshed = true;
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
+        appBar: AppBar(
+          title: Text(widget.appBarTitle),
+        ),
+        body: RefreshIndicator(
+          strokeWidth: 4.0,
+          onRefresh: () async {
+            return Future<void>.delayed(const Duration(seconds: 3), () {
+              setState(() {
+                isRefreshed = true;
+              });
             });
-          });
-        },
-        child: ChangeNotifierProvider<SearchQueryProvider>(
-          create: (context) => SearchQueryProvider(),
-          child: SingleChildScrollView(
-            child: FutureBuilder<dynamic>(
-              future: futureJoyas,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final searchTerm =
-                      Provider.of<SearchQueryProvider>(context).searchedQueried;
-                  final List<dynamic> datos =
-                      filterData(searchTerm, snapshot.data) as List<dynamic>;
+          },
+          child: ChangeNotifierProvider<SearchQueryProvider>(
+            create: (context) => SearchQueryProvider(),
+            child: SingleChildScrollView(
+              child: FutureBuilder<dynamic>(
+                future: futureJoyas,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final searchTerm = Provider.of<SearchQueryProvider>(context)
+                        .searchedQueried;
+                    final List<dynamic> datos =
+                        filterData(searchTerm, snapshot.data) as List<dynamic>;
 
-                  return Wrap(
-                    alignment: WrapAlignment.center,
-                    children: [
-                      Searchbar(),
-                      if (datos.isEmpty)
-                        Text('No se encontro datos')
-                      else
-                        ...datos
-                            .map((joya) => CartaConInfo(
-                                  urlImage: 'img/anilloNombre1.jpg',
-                                  joya: joya,
-                                  joyaABuscar: widget.joyaABuscar,
-                                ))
-                            .toList(),
-                    ],
+                    return Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Searchbar(),
+                        if (datos.isEmpty)
+                          Text('No se encontro datos')
+                        else
+                          ...datos
+                              .map((joya) => CartaConInfo(
+                                    urlImage: 'img/anilloNombre1.jpg',
+                                    joya: joya,
+                                    joyaABuscar: widget.joyaABuscar,
+                                  ))
+                              .toList(),
+                      ],
+                    );
+                  } else if (snapshot.hasError)
+                    return Text('${snapshot.error}');
+                  return Center(
+                    child: LoadingAnimationWidget.discreteCircle(
+                      color: Colors.white,
+                      size: 100,
+                    ),
                   );
-                } else if (snapshot.hasError) return Text('${snapshot.error}');
-                return Center(
-                  child: LoadingAnimationWidget.discreteCircle(
-                    color: Colors.white,
-                    size: 100,
-                  ),
-                );
-              },
+                },
+              ),
             ),
           ),
         ),
