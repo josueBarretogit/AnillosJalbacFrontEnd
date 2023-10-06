@@ -81,9 +81,7 @@ class _DatosAnilloState extends State<DatosAnillo> {
         Row(
           children: [
             Expanded(child: Text("Peso oro: ", style: textStyle)),
-            Expanded(
-                child:
-                    Text(widget.anillo.pesos![0]['pesoOro'], style: textStyle)),
+            Expanded(child: Text(widget.anillo.pesoOro, style: textStyle)),
           ],
         ),
         Row(

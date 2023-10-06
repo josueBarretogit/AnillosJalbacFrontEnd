@@ -1,3 +1,4 @@
+import 'package:anillos_jalbac_flutter/providers/joyaProvider.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
@@ -9,14 +10,9 @@ import 'package:provider/provider.dart';
 class CartaConInfo extends StatefulWidget {
   final String urlImage;
   final String? filtro;
-  final String joyaABuscar;
   final dynamic joya;
   const CartaConInfo(
-      {super.key,
-      required this.urlImage,
-      this.filtro,
-      required this.joyaABuscar,
-      required this.joya});
+      {super.key, required this.urlImage, this.filtro, required this.joya});
 
   @override
   State<CartaConInfo> createState() => _CartaConInfoState();
@@ -26,9 +22,8 @@ class _CartaConInfoState extends State<CartaConInfo> {
   @override
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
-    final heigthsize = MediaQuery.of(context).size.height;
 
-    final searchProvider = Provider.of<SearchQueryProvider>(context);
+    final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
 
     return Padding(
         padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
@@ -60,11 +55,11 @@ class _CartaConInfoState extends State<CartaConInfo> {
                 width: widthsize,
                 child: Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child: widget.joyaABuscar == 'nombre'
+                    child: joyaProvider.getJoya == 'nombre'
                         ? DatosAnillo(
                             anillo: widget.joya,
                           )
-                        : widget.joyaABuscar == 'solitario'
+                        : joyaProvider.getJoya == 'solitario'
                             ? DatosSolitario(solitario: widget.joya)
                             : DatosDije(dije: widget.joya)),
               ),

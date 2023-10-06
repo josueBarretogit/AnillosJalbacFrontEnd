@@ -2,8 +2,9 @@ class Dije {
   final int id;
   final String alto;
   final String ancho;
-  final Map<String, dynamic> foto;
-  final List<dynamic>? pesos;
+  final String foto;
+  final String pesoOro;
+  final String pesoPlata;
   final String referencia;
   final String categoria;
 
@@ -11,7 +12,8 @@ class Dije {
       {required this.alto,
       required this.id,
       required this.foto,
-      required this.pesos,
+      required this.pesoOro,
+      required this.pesoPlata,
       required this.ancho,
       required this.referencia,
       required this.categoria});
@@ -21,7 +23,8 @@ class Dije {
       id: json['id'],
       foto: json['foto'],
       ancho: json['ancho'],
-      pesos: json['pesos'],
+      pesoOro: json['pesoOro'],
+      pesoPlata: json['pesoPlata'],
       alto: json['alto'],
       referencia: json['referencia'],
       categoria: json['categoria'],

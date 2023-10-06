@@ -1,6 +1,7 @@
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 import 'package:anillos_jalbac_flutter/model/dije.dart';
 import 'package:anillos_jalbac_flutter/model/solitario.dart';
+import 'package:anillos_jalbac_flutter/providers/joyaProvider.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/cartaConInfo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
@@ -13,9 +14,10 @@ import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 
 class BuscarScreen extends StatefulWidget {
   final String appBarTitle;
-  final String joyaABuscar;
-  const BuscarScreen(
-      {super.key, required this.appBarTitle, required this.joyaABuscar});
+  const BuscarScreen({
+    super.key,
+    required this.appBarTitle,
+  });
 
   @override
   State<BuscarScreen> createState() => _BuscarScreenState();
@@ -25,16 +27,6 @@ class _BuscarScreenState extends State<BuscarScreen> {
   bool isRefreshed = false;
 
   late Future<dynamic> futureJoyas;
-
-  @override
-  void initState() {
-    super.initState();
-    futureJoyas = widget.joyaABuscar.contains('nombre')
-        ? getAnillos()
-        : widget.joyaABuscar.contains('solitario')
-            ? getSolitarios()
-            : getDijes();
-  }
 
   List<dynamic>? filterData(String searchTerm, List<dynamic>? data) {
     if (searchTerm.isEmpty) {
@@ -65,6 +57,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
@@ -84,7 +77,11 @@ class _BuscarScreenState extends State<BuscarScreen> {
             create: (context) => SearchQueryProvider(),
             child: SingleChildScrollView(
               child: FutureBuilder<dynamic>(
-                future: futureJoyas,
+                future: joyaProvider.getJoya == 'nombre'
+                    ? getAnillos()
+                    : joyaProvider.getJoya == 'solitario'
+                        ? getSolitarios()
+                        : getDijes(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final searchTerm = Provider.of<SearchQueryProvider>(context)
@@ -103,7 +100,6 @@ class _BuscarScreenState extends State<BuscarScreen> {
                               .map((joya) => CartaConInfo(
                                     urlImage: 'img/anilloNombre1.jpg',
                                     joya: joya,
-                                    joyaABuscar: widget.joyaABuscar,
                                   ))
                               .toList(),
                       ],

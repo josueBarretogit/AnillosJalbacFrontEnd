@@ -60,14 +60,6 @@ class _DatosDijeState extends State<DatosDije> {
         ),
         Row(
           children: [
-            Expanded(child: Text("Peso oro: ", style: textStyle)),
-            Expanded(
-                child:
-                    Text(widget.dije.pesos![0]['pesoOro'], style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
             Expanded(child: Text("Referencia : ", style: textStyle)),
             Expanded(child: Text(widget.dije.referencia, style: textStyle)),
           ],

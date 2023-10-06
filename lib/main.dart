@@ -1,9 +1,14 @@
+import 'package:anillos_jalbac_flutter/providers/joyaProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/MobileView.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    ChangeNotifierProvider<JoyaProvider>(
+      create: (context) => JoyaProvider(),
+      child: const MyApp(),
+    ),
   );
 }
 

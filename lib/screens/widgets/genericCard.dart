@@ -1,5 +1,7 @@
+import 'package:anillos_jalbac_flutter/providers/joyaProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/buscarScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GenericCard extends StatefulWidget {
   final String textToSearch;
@@ -13,6 +15,7 @@ class GenericCard extends StatefulWidget {
 class _GenericCardState extends State<GenericCard> {
   @override
   Widget build(BuildContext context) {
+    final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
     return SizedBox(
       width: 300,
       child: Card(
@@ -44,16 +47,17 @@ class _GenericCardState extends State<GenericCard> {
                       final route = MaterialPageRoute(
                         builder: (context) => BuscarScreen(
                           appBarTitle: widget.textToSearch,
-                          joyaABuscar: widget.textToSearch.contains('nombre')
-                              ? 'nombre'
-                              : widget.textToSearch
-                                      .toLowerCase()
-                                      .contains('solitario')
-                                  ? 'solitario'
-                                  : 'dije',
-                          key: Key("1"),
                         ),
                       );
+
+                      if (widget.textToSearch.contains('nombre')) {
+                        joyaProvider.setJoya('nombre');
+                      } else if (widget.textToSearch.contains('solitario')) {
+                        joyaProvider.setJoya('solitario');
+                      } else {
+                        joyaProvider.setJoya('dije');
+                      }
+
                       Navigator.push(context, route);
                     },
                     child: Text(
