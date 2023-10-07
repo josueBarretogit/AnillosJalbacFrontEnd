@@ -39,6 +39,7 @@ dependencies:
   http: ^1.1.0
   loading_animation_widget: ^1.2.0+4
   provider: ^6.0.5
+  pagination_flutter: ^0.0.8
 
 dev_dependencies:
   flutter_test:

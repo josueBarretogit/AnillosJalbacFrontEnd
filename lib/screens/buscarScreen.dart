@@ -11,6 +11,7 @@ import 'package:anillos_jalbac_flutter/screens/widgets/searchBar.dart';
 import 'package:provider/provider.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/paginationWidget.dart';
 
 class BuscarScreen extends StatefulWidget {
   final String appBarTitle;
@@ -105,6 +106,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
                                     joya: joya,
                                   ))
                               .toList(),
+                        PaginationComponent(),
                       ],
                     );
                   } else if (snapshot.hasError)
