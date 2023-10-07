@@ -62,47 +62,50 @@ class DatosAnillo extends StatefulWidget {
 class _DatosAnilloState extends State<DatosAnillo> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          children: [
-            Expanded(child: Text("Nombre : ", style: textStyle)),
-            Expanded(child: Text(widget.anillo.nombre, style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(child: Text("Talla: ", style: textStyle)),
-            Expanded(child: Text(widget.anillo.talla, style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(child: Text("Peso oro: ", style: textStyle)),
-            Expanded(child: Text(widget.anillo.pesoOro, style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(child: Text("Referencia : ", style: textStyle)),
-            Expanded(child: Text(widget.anillo.referencia, style: textStyle)),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                "Categoria: ",
-                style: textStyle,
-                overflow: TextOverflow.clip,
+    return Card(
+      elevation: 0,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Expanded(child: Text("Nombre : ", style: textStyle)),
+              Expanded(child: Text(widget.anillo.nombre, style: textStyle)),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(child: Text("Talla: ", style: textStyle)),
+              Expanded(child: Text(widget.anillo.talla, style: textStyle)),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(child: Text("Peso oro: ", style: textStyle)),
+              Expanded(child: Text(widget.anillo.pesoOro, style: textStyle)),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(child: Text("Referencia : ", style: textStyle)),
+              Expanded(child: Text(widget.anillo.referencia, style: textStyle)),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  "Categoria: ",
+                  style: textStyle,
+                  overflow: TextOverflow.clip,
+                ),
               ),
-            ),
-            Expanded(child: Text(widget.anillo.categoria, style: textStyle)),
-          ],
-        )
-      ],
+              Expanded(child: Text(widget.anillo.categoria, style: textStyle)),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

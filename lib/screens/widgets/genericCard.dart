@@ -28,10 +28,13 @@ class _GenericCardState extends State<GenericCard> {
               Padding(
                 padding: EdgeInsets.all(5),
                 child: CircleAvatar(
-                  backgroundImage: AssetImage(
-                      widget.textToSearch.contains('nombre')
-                          ? 'img/anilloNombre3.jpg'
-                          : 'img/anilloNombre2.jpg'),
+                  backgroundImage: AssetImage(widget.textToSearch
+                          .toLowerCase()
+                          .contains('nombre')
+                      ? 'img/anilloNombre3.jpg'
+                      : widget.textToSearch.toLowerCase().contains('solitario')
+                          ? 'img/solitario.jpg'
+                          : 'img/dije.jpg'),
                   radius: 100,
                 ),
               ),

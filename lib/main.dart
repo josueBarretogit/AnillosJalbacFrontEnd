@@ -36,11 +36,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(title: Text("Anillos Jalbac")),
         backgroundColor: Colors.black,
         body: SafeArea(
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints boxConstraints) {
-              return MobileView();
-            },
-          ),
+          child: MobileView(),
         ),
       ),
     );

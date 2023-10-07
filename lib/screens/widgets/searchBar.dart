@@ -11,8 +11,6 @@ class Searchbar extends StatefulWidget {
 
 class _SearchbarState extends State<Searchbar> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final List<String> listaFiltros = ['nombre', 'peso', 'medida', 'categoria'];
-  String filtrandoPor = 'nombre';
   final searchQueryController = TextEditingController();
 
   @override
@@ -20,6 +18,7 @@ class _SearchbarState extends State<Searchbar> {
     final SearchQueryProvider searchProvider =
         Provider.of<SearchQueryProvider>(context);
 
+    final widthsize = MediaQuery.sizeOf(context).width;
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 25, 5, 5),
       child: Form(
@@ -32,47 +31,16 @@ class _SearchbarState extends State<Searchbar> {
               children: [
                 Flexible(
                   flex: 2,
-                  child: Theme(
-                    data:
-                        Theme.of(context).copyWith(cardColor: Colors.grey[900]),
-                    child: Container(
-                      margin: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                      child: PopupMenuButton(
-                          icon: const Icon(
-                            Icons.menu,
-                            color: Colors.white,
-                          ),
-                          offset: const Offset(0, 40),
-                          itemBuilder: (BuildContext context) {
-                            return listaFiltros
-                                .map(
-                                  (String filtro) => PopupMenuItem(
-                                    onTap: () {
-                                      setState(() {
-                                        filtrandoPor = filtro;
-                                      });
-                                    },
-                                    child: Text(filtro,
-                                        style: const TextStyle(
-                                            color: Colors.white)),
-                                  ),
-                                )
-                                .toList();
-                          }),
-                    ),
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
                   child: SizedBox(
                     height: 40,
+                    width: widthsize / 2,
                     child: TextField(
                       controller: searchQueryController,
                       onChanged: (String text) {
                         searchProvider.setSearchQuery(text);
                       },
                       decoration: InputDecoration(
-                        hintText: '#100',
+                        hintText: 'Sofia',
                         fillColor: Colors.white,
                         filled: true,
                       ),
@@ -81,7 +49,6 @@ class _SearchbarState extends State<Searchbar> {
                 ),
               ],
             ),
-            Text(''),
           ],
         ),
       ),

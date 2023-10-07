@@ -51,6 +51,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
             joya.talla.toLowerCase().contains(searchTerm) ||
             joya.referencia.toLowerCase().contains(searchTerm);
       }
+
       return false;
     }).toList();
   }
@@ -90,6 +91,8 @@ class _BuscarScreenState extends State<BuscarScreen> {
                         filterData(searchTerm, snapshot.data) as List<dynamic>;
 
                     return Wrap(
+                      runSpacing: 30,
+                      spacing: 30,
                       alignment: WrapAlignment.center,
                       children: [
                         Searchbar(),
@@ -106,11 +109,17 @@ class _BuscarScreenState extends State<BuscarScreen> {
                     );
                   } else if (snapshot.hasError)
                     return Text('${snapshot.error}');
-                  return Center(
-                    child: LoadingAnimationWidget.discreteCircle(
-                      color: Colors.white,
-                      size: 100,
-                    ),
+                  return Wrap(
+                    runSpacing: 30,
+                    spacing: 30,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      Searchbar(),
+                      LoadingAnimationWidget.discreteCircle(
+                        color: Colors.white,
+                        size: 100,
+                      ),
+                    ],
                   );
                 },
               ),

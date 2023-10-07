@@ -25,46 +25,44 @@ class _CartaConInfoState extends State<CartaConInfo> {
 
     final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
 
-    return Padding(
-        padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-        child: Wrap(
-          alignment: WrapAlignment.center,
-          children: [
-            ConstrainedBox(
-              constraints: const BoxConstraints(
-                minWidth: 200,
-                maxWidth: 300,
-                minHeight: 300,
-              ),
-              child: SizedBox(
-                width: widthsize,
-                child: Image.asset(
-                  widget.urlImage,
-                  fit: BoxFit.fill,
-                ),
-              ),
+    return Wrap(
+      alignment: WrapAlignment.center,
+      children: [
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: 200,
+            maxWidth: 300,
+            minHeight: 300,
+          ),
+          child: SizedBox(
+            width: widthsize,
+            child: Image.asset(
+              widget.urlImage,
+              fit: BoxFit.fill,
             ),
-            ConstrainedBox(
-              constraints: const BoxConstraints(
-                minWidth: 200,
-                maxWidth: 300,
-                minHeight: 300,
-              ),
-              child: Container(
-                color: Colors.grey[900],
-                width: widthsize,
-                child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: joyaProvider.getJoya == 'nombre'
-                        ? DatosAnillo(
-                            anillo: widget.joya,
-                          )
-                        : joyaProvider.getJoya == 'solitario'
-                            ? DatosSolitario(solitario: widget.joya)
-                            : DatosDije(dije: widget.joya)),
-              ),
-            ),
-          ],
-        ));
+          ),
+        ),
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: 200,
+            maxWidth: 300,
+            minHeight: 300,
+          ),
+          child: Container(
+            color: Colors.grey[900],
+            width: widthsize,
+            child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: joyaProvider.getJoya == 'nombre'
+                    ? DatosAnillo(
+                        anillo: widget.joya,
+                      )
+                    : joyaProvider.getJoya == 'solitario'
+                        ? DatosSolitario(solitario: widget.joya)
+                        : DatosDije(dije: widget.joya)),
+          ),
+        ),
+      ],
+    );
   }
 }
