@@ -1,9 +1,11 @@
-import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:pagination_flutter/pagination.dart';
 
 class PaginationComponent extends StatefulWidget {
-  const PaginationComponent({super.key});
+  final int numPages;
+  final Function? onUpdatePagination;
+  const PaginationComponent(
+      {super.key, required this.numPages, this.onUpdatePagination});
 
   @override
   State<PaginationComponent> createState() => _PaginationComponentState();
@@ -14,7 +16,7 @@ class _PaginationComponentState extends State<PaginationComponent> {
   @override
   Widget build(BuildContext context) {
     return Pagination(
-      numOfPages: 10,
+      numOfPages: widget.numPages,
       selectedPage: pageSelected,
       pagesVisible: 3,
       onPageChanged: (int page) {

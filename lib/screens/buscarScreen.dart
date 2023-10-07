@@ -91,6 +91,12 @@ class _BuscarScreenState extends State<BuscarScreen> {
                     final List<dynamic> datos =
                         filterData(searchTerm, snapshot.data) as List<dynamic>;
 
+                    void updatePagination() {
+                      const numItems = 3;
+                      datos.removeRange(0, numItems - 1);
+                    }
+
+                    updatePagination();
                     return Wrap(
                       runSpacing: 30,
                       spacing: 30,
@@ -106,7 +112,9 @@ class _BuscarScreenState extends State<BuscarScreen> {
                                     joya: joya,
                                   ))
                               .toList(),
-                        PaginationComponent(),
+                        PaginationComponent(
+                          numPages: datos.length,
+                        ),
                       ],
                     );
                   } else if (snapshot.hasError)
