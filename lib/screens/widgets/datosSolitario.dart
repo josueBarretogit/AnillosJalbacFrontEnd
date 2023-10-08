@@ -78,32 +78,38 @@ class rowinColumn {
     return [
       Row(
         children: [
-          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
-          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+          Expanded(child: Text("Talla: ")),
+          Expanded(child: Text(solitario.talla)),
         ],
       ),
       Row(
         children: [
-          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
-          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+          Expanded(child: Text("Tamaño piedra")),
+          Expanded(child: Text(solitario.tamanoPiedra)),
         ],
       ),
       Row(
         children: [
-          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
-          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+          Expanded(child: Text("Forma piedra: ")),
+          Expanded(child: Text(solitario.formaPiedra)),
         ],
       ),
       Row(
         children: [
-          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
-          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+          Expanded(child: Text("Referencia : ")),
+          Expanded(child: Text(solitario.referencia)),
         ],
       ),
       Row(
         children: [
-          Expanded(child: Text("Tamaño piedra: ", style: textStyle)),
-          Expanded(child: Text(solitario.tamanoPiedra, style: textStyle)),
+          Expanded(child: Text("Peso oro: ")),
+          Expanded(child: Text(solitario.pesoOro)),
+        ],
+      ),
+      Row(
+        children: [
+          Expanded(child: Text("Peso plata : ")),
+          Expanded(child: Text(solitario.pesoPlata)),
         ],
       ),
     ];

@@ -55,7 +55,9 @@ class _GenericCardState extends State<GenericCard> {
 
                       if (widget.textToSearch.contains('nombre')) {
                         joyaProvider.setJoya('nombre');
-                      } else if (widget.textToSearch.contains('solitario')) {
+                      } else if (widget.textToSearch
+                          .toLowerCase()
+                          .contains('solitario')) {
                         joyaProvider.setJoya('solitario');
                       } else {
                         joyaProvider.setJoya('dije');
@@ -64,8 +66,10 @@ class _GenericCardState extends State<GenericCard> {
                       Navigator.push(context, route);
                     },
                     child: Text(
-                        'Buscar ${widget.textToSearch.trim().toLowerCase()}'),
-                  )
+                      'Buscar ${widget.textToSearch.trim().toLowerCase()}',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
                 ],
               ),
             ],

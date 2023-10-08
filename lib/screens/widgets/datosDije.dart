@@ -48,32 +48,40 @@ class _DatosDijeState extends State<DatosDije> {
       children: [
         Row(
           children: [
-            Expanded(child: Text("Altura : ", style: textStyle)),
-            Expanded(child: Text(widget.dije.alto, style: textStyle)),
+            Expanded(child: Text("Altura : ")),
+            Expanded(child: Text(widget.dije.alto)),
           ],
         ),
         Row(
           children: [
-            Expanded(child: Text("Anchura: ", style: textStyle)),
-            Expanded(child: Text(widget.dije.ancho, style: textStyle)),
+            Expanded(child: Text("Anchura: ")),
+            Expanded(child: Text(widget.dije.ancho)),
           ],
         ),
         Row(
           children: [
-            Expanded(child: Text("Referencia : ", style: textStyle)),
-            Expanded(child: Text(widget.dije.referencia, style: textStyle)),
+            Expanded(child: Text("Referencia : ")),
+            Expanded(child: Text(widget.dije.referencia)),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Text("Peso oro : ")),
+            Expanded(child: Text(widget.dije.pesoOro)),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Text("Peso plata : ")),
+            Expanded(child: Text(widget.dije.pesoPlata)),
           ],
         ),
         Row(
           children: [
             Expanded(
-              child: Text(
-                "Categoria: ",
-                style: textStyle,
-                overflow: TextOverflow.clip,
-              ),
+              child: Text("Categoria: "),
             ),
-            Expanded(child: Text(widget.dije.categoria, style: textStyle)),
+            Expanded(child: Text(widget.dije.categoria)),
           ],
         )
       ],

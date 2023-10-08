@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Colors.white, fontSize: 20),
+          bodyMedium: TextStyle(
+              color: Colors.white, fontSize: 20, overflow: TextOverflow.clip),
         ),
         primaryColor: Colors.black,
         appBarTheme: AppBarTheme(color: Colors.grey[900], centerTitle: true),

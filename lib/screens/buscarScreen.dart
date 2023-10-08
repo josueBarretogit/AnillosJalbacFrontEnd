@@ -96,7 +96,6 @@ class _BuscarScreenState extends State<BuscarScreen> {
                       datos.removeRange(0, numItems - 1);
                     }
 
-                    updatePagination();
                     return Wrap(
                       runSpacing: 30,
                       spacing: 30,
@@ -112,9 +111,6 @@ class _BuscarScreenState extends State<BuscarScreen> {
                                     joya: joya,
                                   ))
                               .toList(),
-                        PaginationComponent(
-                          numPages: datos.length,
-                        ),
                       ],
                     );
                   } else if (snapshot.hasError)

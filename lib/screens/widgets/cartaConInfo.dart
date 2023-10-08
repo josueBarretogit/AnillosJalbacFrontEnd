@@ -3,6 +3,7 @@ import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosSolitario.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class _CartaConInfoState extends State<CartaConInfo> {
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
 
+    final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
     final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
 
     return Wrap(
@@ -31,21 +33,23 @@ class _CartaConInfoState extends State<CartaConInfo> {
         ConstrainedBox(
           constraints: const BoxConstraints(
             minWidth: 200,
-            maxWidth: 300,
-            minHeight: 300,
+            maxWidth: 350,
+            minHeight: 290,
+            maxHeight: 300,
           ),
           child: SizedBox(
             width: widthsize,
-            child: Image.asset(
-              widget.urlImage,
+            child: Image.network(
+              'http://$urlDev:4000/${widget.joya.foto}',
               fit: BoxFit.fill,
+              repeat: ImageRepeat.noRepeat,
             ),
           ),
         ),
         ConstrainedBox(
           constraints: const BoxConstraints(
             minWidth: 200,
-            maxWidth: 300,
+            maxWidth: 350,
             minHeight: 300,
           ),
           child: Container(

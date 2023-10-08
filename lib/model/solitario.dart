@@ -2,7 +2,7 @@ class Solitario {
   final int id;
   final String pesoOro;
   final String pesoPlata;
-  final Map<String, dynamic> foto;
+  final String foto;
   final String talla;
   final String referencia;
   final String tamanoPiedra;

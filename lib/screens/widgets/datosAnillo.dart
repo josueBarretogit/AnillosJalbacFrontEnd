@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
-import 'package:provider/provider.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:anillos_jalbac_flutter/constants.dart';
 
@@ -70,38 +69,34 @@ class _DatosAnilloState extends State<DatosAnillo> {
         children: [
           Row(
             children: [
-              Expanded(child: Text("Nombre : ", style: textStyle)),
-              Expanded(child: Text(widget.anillo.nombre, style: textStyle)),
+              Expanded(child: Text("Nombre : ")),
+              Expanded(child: Text(widget.anillo.nombre)),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Text("Talla: ", style: textStyle)),
-              Expanded(child: Text(widget.anillo.talla, style: textStyle)),
+              Expanded(child: Text("Talla: ")),
+              Expanded(child: Text(widget.anillo.talla)),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Text("Peso oro: ", style: textStyle)),
-              Expanded(child: Text(widget.anillo.pesoOro, style: textStyle)),
+              Expanded(child: Text("Peso oro: ")),
+              Expanded(child: Text(widget.anillo.pesoOro)),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Text("Referencia : ", style: textStyle)),
-              Expanded(child: Text(widget.anillo.referencia, style: textStyle)),
+              Expanded(child: Text("Referencia : ")),
+              Expanded(child: Text(widget.anillo.referencia)),
             ],
           ),
           Row(
             children: [
               Expanded(
-                child: Text(
-                  "Categoria: ",
-                  style: textStyle,
-                  overflow: TextOverflow.clip,
-                ),
+                child: Text("Categoria: "),
               ),
-              Expanded(child: Text(widget.anillo.categoria, style: textStyle)),
+              Expanded(child: Text(widget.anillo.categoria)),
             ],
           )
         ],
