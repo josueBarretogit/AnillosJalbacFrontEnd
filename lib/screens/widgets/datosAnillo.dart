@@ -87,6 +87,12 @@ class _DatosAnilloState extends State<DatosAnillo> {
           ),
           Row(
             children: [
+              Expanded(child: Text("Peso plata: ")),
+              Expanded(child: Text(widget.anillo.pesoPlata)),
+            ],
+          ),
+          Row(
+            children: [
               Expanded(child: Text("Referencia : ")),
               Expanded(child: Text(widget.anillo.referencia)),
             ],

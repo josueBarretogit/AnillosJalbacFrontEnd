@@ -91,19 +91,31 @@ class _BuscarScreenState extends State<BuscarScreen> {
                     final List<dynamic> datos =
                         filterData(searchTerm, snapshot.data) as List<dynamic>;
 
-                    void updatePagination() {
-                      const numItems = 3;
-                      datos.removeRange(0, numItems - 1);
+                    const numItemsPerPage = 2;
+                    final cantPages = (datos.length) / numItemsPerPage;
+
+                    void startPagination() {
+                      final end = (datos.length - 1) / numItemsPerPage;
+                      datos.removeRange(1, end.ceil());
                     }
 
+                    void updatePagination(int page) {
+                      final from = (page - 1) * numItemsPerPage;
+                      final end = page * numItemsPerPage - 1;
+                      setState(() {
+                        datos.removeRange(from, end);
+                      });
+                    }
+
+                    startPagination();
                     return Wrap(
                       runSpacing: 30,
                       spacing: 30,
                       alignment: WrapAlignment.center,
                       children: [
-                        Searchbar(),
+                        const Searchbar(),
                         if (datos.isEmpty)
-                          Text('No se encontro datos')
+                          const Text('No se encontro datos')
                         else
                           ...datos
                               .map((joya) => CartaConInfo(
@@ -111,16 +123,21 @@ class _BuscarScreenState extends State<BuscarScreen> {
                                     joya: joya,
                                   ))
                               .toList(),
+                        PaginationComponent(
+                          cantPages: cantPages.ceil(),
+                          onUpdatePagination: updatePagination,
+                        ),
                       ],
                     );
-                  } else if (snapshot.hasError)
+                  } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
+                  }
                   return Wrap(
                     runSpacing: 30,
                     spacing: 30,
                     alignment: WrapAlignment.center,
                     children: [
-                      Searchbar(),
+                      const Searchbar(),
                       LoadingAnimationWidget.discreteCircle(
                         color: Colors.white,
                         size: 100,

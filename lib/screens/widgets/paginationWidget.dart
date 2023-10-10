@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pagination_flutter/pagination.dart';
 
 class PaginationComponent extends StatefulWidget {
-  final int numPages;
-  final Function? onUpdatePagination;
+  final int cantPages;
+  final Function onUpdatePagination;
   const PaginationComponent(
-      {super.key, required this.numPages, this.onUpdatePagination});
+      {super.key, required this.onUpdatePagination, required this.cantPages});
 
   @override
   State<PaginationComponent> createState() => _PaginationComponentState();
@@ -16,13 +16,15 @@ class _PaginationComponentState extends State<PaginationComponent> {
   @override
   Widget build(BuildContext context) {
     return Pagination(
-      numOfPages: widget.numPages,
+      numOfPages: widget.cantPages,
       selectedPage: pageSelected,
       pagesVisible: 3,
       onPageChanged: (int page) {
         setState(() {
           pageSelected = page;
         });
+
+        widget.onUpdatePagination(page);
       },
       nextIcon: Icon(
         Icons.arrow_forward_ios,
