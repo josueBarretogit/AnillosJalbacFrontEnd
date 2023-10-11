@@ -3,9 +3,13 @@ import 'package:pagination_flutter/pagination.dart';
 
 class PaginationComponent extends StatefulWidget {
   final int cantPages;
+  final List<dynamic> datos;
   final Function onUpdatePagination;
   const PaginationComponent(
-      {super.key, required this.onUpdatePagination, required this.cantPages});
+      {super.key,
+      required this.onUpdatePagination,
+      required this.cantPages,
+      required this.datos});
 
   @override
   State<PaginationComponent> createState() => _PaginationComponentState();
@@ -22,9 +26,8 @@ class _PaginationComponentState extends State<PaginationComponent> {
       onPageChanged: (int page) {
         setState(() {
           pageSelected = page;
+          widget.onUpdatePagination(page, widget.datos);
         });
-
-        widget.onUpdatePagination(page);
       },
       nextIcon: Icon(
         Icons.arrow_forward_ios,

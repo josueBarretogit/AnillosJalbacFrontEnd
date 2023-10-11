@@ -57,6 +57,29 @@ class _BuscarScreenState extends State<BuscarScreen> {
     }).toList();
   }
 
+  bool updatedPagination = false;
+  final numItemsPerPage = 2;
+  int cantPages = 1;
+
+  List<dynamic> datosCopy = [];
+
+  List<dynamic>? updatePagination(int page, List<dynamic>? datos) {
+    final from = (page - 1) * numItemsPerPage;
+    final end = page * numItemsPerPage;
+    setState(() {
+      datosCopy = datos!.sublist(from, end);
+      updatedPagination = true;
+      print(datosCopy);
+    });
+    print('updated');
+  }
+
+  void startPagination(List<dynamic> datos) {
+    cantPages = ((datos.length - 1) / numItemsPerPage).ceil();
+    datosCopy = datos.sublist(0, numItemsPerPage);
+    print(datosCopy);
+  }
+
   @override
   Widget build(BuildContext context) {
     final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
@@ -88,26 +111,13 @@ class _BuscarScreenState extends State<BuscarScreen> {
                   if (snapshot.hasData) {
                     final searchTerm = Provider.of<SearchQueryProvider>(context)
                         .searchedQueried;
-                    final List<dynamic> datos =
+                    List<dynamic> datos =
                         filterData(searchTerm, snapshot.data) as List<dynamic>;
 
-                    const numItemsPerPage = 2;
-                    final cantPages = (datos.length) / numItemsPerPage;
-
-                    void startPagination() {
-                      final end = (datos.length - 1) / numItemsPerPage;
-                      datos.removeRange(1, end.ceil());
+                    if (!updatedPagination) {
+                      startPagination(datos);
                     }
 
-                    void updatePagination(int page) {
-                      final from = (page - 1) * numItemsPerPage;
-                      final end = page * numItemsPerPage - 1;
-                      setState(() {
-                        datos.removeRange(from, end);
-                      });
-                    }
-
-                    startPagination();
                     return Wrap(
                       runSpacing: 30,
                       spacing: 30,
@@ -117,15 +127,16 @@ class _BuscarScreenState extends State<BuscarScreen> {
                         if (datos.isEmpty)
                           const Text('No se encontro datos')
                         else
-                          ...datos
+                          ...datosCopy!
                               .map((joya) => CartaConInfo(
                                     urlImage: 'img/anilloNombre1.jpg',
                                     joya: joya,
                                   ))
                               .toList(),
                         PaginationComponent(
-                          cantPages: cantPages.ceil(),
+                          cantPages: 2,
                           onUpdatePagination: updatePagination,
+                          datos: datos,
                         ),
                       ],
                     );
