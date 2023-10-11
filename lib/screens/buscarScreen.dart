@@ -58,26 +58,29 @@ class _BuscarScreenState extends State<BuscarScreen> {
   }
 
   bool updatedPagination = false;
-  final numItemsPerPage = 2;
+  final numItemsPerPage = 3;
   int cantPages = 1;
 
   List<dynamic> datosCopy = [];
 
-  List<dynamic>? updatePagination(int page, List<dynamic>? datos) {
+  void updatePagination(int page, List<dynamic>? datos) {
     final from = (page - 1) * numItemsPerPage;
     final end = page * numItemsPerPage;
+    final minimoItemsShown = end - datos!.length;
     setState(() {
-      datosCopy = datos!.sublist(from, end);
+      if (end > datos.length) {
+        datosCopy = datos.sublist(from, end - minimoItemsShown);
+      } else {
+        datosCopy = datos.sublist(from, end);
+      }
       updatedPagination = true;
-      print(datosCopy);
     });
-    print('updated');
   }
 
   void startPagination(List<dynamic> datos) {
-    cantPages = ((datos.length - 1) / numItemsPerPage).ceil();
+    cantPages = ((datos.length) / numItemsPerPage).ceil();
+    //3
     datosCopy = datos.sublist(0, numItemsPerPage);
-    print(datosCopy);
   }
 
   @override
@@ -127,14 +130,14 @@ class _BuscarScreenState extends State<BuscarScreen> {
                         if (datos.isEmpty)
                           const Text('No se encontro datos')
                         else
-                          ...datosCopy!
+                          ...datosCopy
                               .map((joya) => CartaConInfo(
                                     urlImage: 'img/anilloNombre1.jpg',
                                     joya: joya,
                                   ))
                               .toList(),
                         PaginationComponent(
-                          cantPages: 2,
+                          cantPages: cantPages,
                           onUpdatePagination: updatePagination,
                           datos: datos,
                         ),
