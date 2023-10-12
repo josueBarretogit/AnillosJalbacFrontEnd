@@ -30,6 +30,17 @@ Future<List<Dije>?> getDijes() async {
   }
 }
 
+List<Dije>? filtrarPorDije(List<Dije>? listDijes, String searchTerm) {
+  return listDijes!.where((Dije anillo) {
+    return anillo.pesoOro.toLowerCase() == searchTerm ||
+        anillo.pesoPlata.toLowerCase() == searchTerm ||
+        anillo.referencia.toLowerCase() == searchTerm ||
+        anillo.alto.toLowerCase().contains(searchTerm) ||
+        anillo.ancho.toLowerCase().contains(searchTerm) ||
+        anillo.categoria.toLowerCase().contains(searchTerm);
+  }).toList();
+}
+
 class DatosDije extends StatefulWidget {
   final Dije dije;
   const DatosDije({super.key, required this.dije});

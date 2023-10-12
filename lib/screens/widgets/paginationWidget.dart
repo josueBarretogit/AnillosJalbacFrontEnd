@@ -3,7 +3,7 @@ import 'package:pagination_flutter/pagination.dart';
 
 class PaginationComponent extends StatefulWidget {
   final int cantPages;
-  final List<dynamic> datos;
+  final List<dynamic>? datos;
   final Function onUpdatePagination;
   const PaginationComponent(
       {super.key,

@@ -56,6 +56,18 @@ class DatosSolitario extends StatefulWidget {
   State<DatosSolitario> createState() => _DatosSolitarioState();
 }
 
+List<Solitario>? filtrarPorSolitario(
+    List<Solitario>? listSolitarios, String searchTerm) {
+  return listSolitarios!.where((Solitario anillo) {
+    return anillo.pesoOro.toLowerCase() == searchTerm ||
+        anillo.pesoPlata.toLowerCase() == searchTerm ||
+        anillo.referencia.toLowerCase() == searchTerm ||
+        anillo.formaPiedra.toLowerCase().contains(searchTerm) ||
+        anillo.talla.toLowerCase().contains(searchTerm) ||
+        anillo.tamanoPiedra.toLowerCase().contains(searchTerm);
+  }).toList();
+}
+
 class _DatosSolitarioState extends State<DatosSolitario> {
   @override
   Widget build(BuildContext context) {

@@ -29,36 +29,20 @@ class _BuscarScreenState extends State<BuscarScreen> {
 
   late Future<dynamic> futureJoyas;
 
-  List<dynamic>? filterData(String searchTerm, List<dynamic> data) {
+  List<dynamic>? filterData(
+      String searchTerm, List<dynamic> data, String joya) {
     if (searchTerm.isEmpty) {
       return data;
     }
     searchTerm = searchTerm.toLowerCase();
 
-    if (data[0] is Anillo) {
+    if (joya == 'nombre') {
       return filtrarPorAnillo(data as List<Anillo>, searchTerm);
+    } else if (joya == 'solitario') {
+      return filtrarPorSolitario(data as List<Solitario>, searchTerm);
+    } else {
+      return filtrarPorDije(data as List<Dije>, searchTerm);
     }
-    return data!.where((dynamic joya) {
-      if (joya is Anillo) {
-        return joya.nombre.toLowerCase().contains(searchTerm) ||
-            joya.referencia.toLowerCase() == searchTerm ||
-            joya.categoria.toLowerCase().contains(searchTerm) ||
-            joya.talla.toLowerCase().contains(searchTerm);
-      } else if (joya is Dije) {
-        return joya.alto.toLowerCase().contains(searchTerm) ||
-            joya.ancho.toLowerCase().contains(searchTerm) ||
-            joya.categoria.toLowerCase().contains(searchTerm) ||
-            joya.referencia.toLowerCase().contains(searchTerm);
-      } else if (joya is Solitario) {
-        return joya.referencia.toLowerCase().contains(searchTerm) ||
-            joya.tamanoPiedra.toLowerCase().contains(searchTerm) ||
-            joya.formaPiedra.toLowerCase().contains(searchTerm) ||
-            joya.talla.toLowerCase().contains(searchTerm) ||
-            joya.referencia.toLowerCase().contains(searchTerm);
-      }
-
-      return false;
-    }).toList();
   }
 
   bool updatedPagination = false;
@@ -84,7 +68,6 @@ class _BuscarScreenState extends State<BuscarScreen> {
 
   void startPagination(List<dynamic> datos) {
     cantPages = ((datos.length) / numItemsPerPage).ceil();
-    //3
     if (numItemsPerPage > datos.length) {
       datosCopy = datos;
     } else {
@@ -120,11 +103,13 @@ class _BuscarScreenState extends State<BuscarScreen> {
                         ? getSolitarios()
                         : getDijes(),
                 builder: (context, snapshot) {
+                  String joya = joyaProvider.getJoya;
                   if (snapshot.hasData) {
                     final searchTerm = Provider.of<SearchQueryProvider>(context)
                         .searchedQueried;
                     List<dynamic> datos =
-                        filterData(searchTerm, snapshot.data) as List<dynamic>;
+                        filterData(searchTerm, snapshot.data, joya)
+                            as List<dynamic>;
 
                     if (!updatedPagination) {
                       startPagination(datos);
