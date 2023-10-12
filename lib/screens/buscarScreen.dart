@@ -29,15 +29,19 @@ class _BuscarScreenState extends State<BuscarScreen> {
 
   late Future<dynamic> futureJoyas;
 
-  List<dynamic>? filterData(String searchTerm, List<dynamic>? data) {
+  List<dynamic>? filterData(String searchTerm, List<dynamic> data) {
     if (searchTerm.isEmpty) {
       return data;
     }
     searchTerm = searchTerm.toLowerCase();
+
+    if (data[0] is Anillo) {
+      return filtrarPorAnillo(data as List<Anillo>, searchTerm);
+    }
     return data!.where((dynamic joya) {
       if (joya is Anillo) {
         return joya.nombre.toLowerCase().contains(searchTerm) ||
-            joya.referencia.toLowerCase().contains(searchTerm) ||
+            joya.referencia.toLowerCase() == searchTerm ||
             joya.categoria.toLowerCase().contains(searchTerm) ||
             joya.talla.toLowerCase().contains(searchTerm);
       } else if (joya is Dije) {
@@ -68,6 +72,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
     final end = page * numItemsPerPage;
     final minimoItemsShown = end - datos!.length;
     setState(() {
+      cantPages = ((datos.length) / numItemsPerPage).ceil();
       if (end > datos.length) {
         datosCopy = datos.sublist(from, end - minimoItemsShown);
       } else {
@@ -80,7 +85,11 @@ class _BuscarScreenState extends State<BuscarScreen> {
   void startPagination(List<dynamic> datos) {
     cantPages = ((datos.length) / numItemsPerPage).ceil();
     //3
-    datosCopy = datos.sublist(0, numItemsPerPage);
+    if (numItemsPerPage > datos.length) {
+      datosCopy = datos;
+    } else {
+      datosCopy = datos.sublist(0, numItemsPerPage);
+    }
   }
 
   @override
@@ -127,6 +136,11 @@ class _BuscarScreenState extends State<BuscarScreen> {
                       alignment: WrapAlignment.center,
                       children: [
                         const Searchbar(),
+                        PaginationComponent(
+                          cantPages: cantPages,
+                          onUpdatePagination: updatePagination,
+                          datos: datos,
+                        ),
                         if (datos.isEmpty)
                           const Text('No se encontro datos')
                         else
@@ -136,11 +150,6 @@ class _BuscarScreenState extends State<BuscarScreen> {
                                     joya: joya,
                                   ))
                               .toList(),
-                        PaginationComponent(
-                          cantPages: cantPages,
-                          onUpdatePagination: updatePagination,
-                          datos: datos,
-                        ),
                       ],
                     );
                   } else if (snapshot.hasError) {

@@ -3,16 +3,16 @@ import 'package:anillos_jalbac_flutter/screens/buscarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class GenericCard extends StatefulWidget {
+class CartaSeleccion extends StatefulWidget {
   final String textToSearch;
 
-  const GenericCard(this.textToSearch, {super.key});
+  const CartaSeleccion(this.textToSearch, {super.key});
 
   @override
-  State<GenericCard> createState() => _GenericCardState();
+  State<CartaSeleccion> createState() => _CartaSeleccionState();
 }
 
-class _GenericCardState extends State<GenericCard> {
+class _CartaSeleccionState extends State<CartaSeleccion> {
   @override
   Widget build(BuildContext context) {
     final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);

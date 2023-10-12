@@ -3,10 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
-import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
-import 'package:anillos_jalbac_flutter/constants.dart';
 
-final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
+const urlDev = kIsWeb ? "localhost" : "10.0.2.2";
 
 List<Anillo> storeListAnillos(String arrayAnillos) {
   final List<Anillo> listaAnillos = [];
@@ -50,6 +48,17 @@ Future<List<Anillo>?> getAnillos() async {
   }
 }
 
+List<Anillo> filtrarPorAnillo(List<Anillo> listAnillos, String searchTerm) {
+  return listAnillos.where((Anillo anillo) {
+    return anillo.pesoOro.toLowerCase() == searchTerm ||
+        anillo.pesoPlata.toLowerCase() == searchTerm ||
+        anillo.referencia.toLowerCase() == searchTerm ||
+        anillo.nombre.toLowerCase().contains(searchTerm) ||
+        anillo.talla.toLowerCase().contains(searchTerm) ||
+        anillo.categoria.toLowerCase().contains(searchTerm);
+  });
+}
+
 class DatosAnillo extends StatefulWidget {
   final Anillo anillo;
   const DatosAnillo({super.key, required this.anillo});
@@ -69,37 +78,37 @@ class _DatosAnilloState extends State<DatosAnillo> {
         children: [
           Row(
             children: [
-              Expanded(child: Text("Nombre : ")),
+              const Expanded(child: Text("Nombre : ")),
               Expanded(child: Text(widget.anillo.nombre)),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Text("Talla: ")),
+              const Expanded(child: Text("Talla: ")),
               Expanded(child: Text(widget.anillo.talla)),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Text("Peso oro: ")),
+              const Expanded(child: Text("Peso oro: ")),
               Expanded(child: Text(widget.anillo.pesoOro)),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Text("Peso plata: ")),
+              const Expanded(child: Text("Peso plata: ")),
               Expanded(child: Text(widget.anillo.pesoPlata)),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Text("Referencia : ")),
+              const Expanded(child: Text("Referencia : ")),
               Expanded(child: Text(widget.anillo.referencia)),
             ],
           ),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: Text("Categoria: "),
               ),
               Expanded(child: Text(widget.anillo.categoria)),

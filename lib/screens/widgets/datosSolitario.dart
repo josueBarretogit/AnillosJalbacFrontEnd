@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/solitario.dart';
-import 'package:anillos_jalbac_flutter/constants.dart';
 
 final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
 

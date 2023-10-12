@@ -1,5 +1,5 @@
-import 'package:anillos_jalbac_flutter/screens/widgets/genericCard.dart';
 import 'package:flutter/material.dart';
+import 'package:anillos_jalbac_flutter/screens/widgets/cartaSeleccion.dart';
 
 const List<String> listTitles = [
   'Anillo de nombre',
@@ -7,10 +7,6 @@ const List<String> listTitles = [
   'Solitarios',
 ];
 
-final List<GenericCard> listCards = listTitles.map((title) {
-  return GenericCard(title);
+final List<CartaSeleccion> listCards = listTitles.map((title) {
+  return CartaSeleccion(title);
 }).toList();
-
-final TextStyle textStyle = const TextStyle(
-  fontSize: 20,
-);

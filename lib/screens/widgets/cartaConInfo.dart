@@ -1,11 +1,9 @@
 import 'package:anillos_jalbac_flutter/providers/joyaProvider.dart';
-import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosSolitario.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 import 'package:provider/provider.dart';
 
 class CartaConInfo extends StatefulWidget {
