@@ -1,3 +1,4 @@
+import 'package:anillos_jalbac_flutter/providers/joyaProvider.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,14 @@ class _SearchbarState extends State<Searchbar> {
 
   @override
   Widget build(BuildContext context) {
+    final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
     final SearchQueryProvider searchProvider =
         Provider.of<SearchQueryProvider>(context);
+    String hintText = joyaProvider.getJoya == 'nombre'
+        ? 'Ej: Maria'
+        : joyaProvider.getJoya == 'solitario'
+            ? 'Ej: forma piedra cuadrada'
+            : 'Ej: 5mm alto';
 
     final widthsize = MediaQuery.sizeOf(context).width;
     return Padding(
@@ -27,8 +34,14 @@ class _SearchbarState extends State<Searchbar> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
               children: [
+                Flexible(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Buscar'),
+                  ),
+                ),
                 Flexible(
                   flex: 2,
                   child: SizedBox(
@@ -40,7 +53,7 @@ class _SearchbarState extends State<Searchbar> {
                         searchProvider.setSearchQuery(text);
                       },
                       decoration: InputDecoration(
-                        hintText: 'Sofia',
+                        hintText: hintText,
                         fillColor: Colors.white,
                         filled: true,
                       ),

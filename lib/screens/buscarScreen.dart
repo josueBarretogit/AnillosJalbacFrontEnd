@@ -31,9 +31,10 @@ class _BuscarScreenState extends State<BuscarScreen> {
 
   List<dynamic>? filterData(
       String searchTerm, List<dynamic> data, String joya) {
-    if (searchTerm.isEmpty) {
+    if (searchTerm.toLowerCase().isEmpty) {
       return data;
     }
+
     searchTerm = searchTerm.toLowerCase();
 
     if (joya == 'nombre') {
@@ -121,11 +122,6 @@ class _BuscarScreenState extends State<BuscarScreen> {
                       alignment: WrapAlignment.center,
                       children: [
                         const Searchbar(),
-                        PaginationComponent(
-                          cantPages: cantPages,
-                          onUpdatePagination: updatePagination,
-                          datos: datos,
-                        ),
                         if (datos.isEmpty)
                           const Text('No se encontro datos')
                         else
@@ -135,6 +131,11 @@ class _BuscarScreenState extends State<BuscarScreen> {
                                     joya: joya,
                                   ))
                               .toList(),
+                        PaginationComponent(
+                          cantPages: cantPages,
+                          onUpdatePagination: updatePagination,
+                          datos: datos,
+                        ),
                       ],
                     );
                   } else if (snapshot.hasError) {

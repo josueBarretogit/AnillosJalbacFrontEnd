@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
 
-const urlDev = kIsWeb ? "localhost" : "10.0.2.2";
+import 'package:anillos_jalbac_flutter/constants.dart' as constants;
 
 List<Anillo> storeListAnillos(String arrayAnillos) {
   final List<Anillo> listaAnillos = [];
@@ -35,7 +34,7 @@ Future<Anillo> getAnillo(int id) async {
 
 Future<List<Anillo>?> getAnillos() async {
   final response = await http.get(
-    Uri.parse('http://$urlDev:4000/api/anillos'),
+    Uri.parse('http://${constants.urlDev}:4000/api/anillos'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

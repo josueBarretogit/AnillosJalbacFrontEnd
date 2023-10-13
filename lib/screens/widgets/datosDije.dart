@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/dije.dart';
 
-final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
+import 'package:anillos_jalbac_flutter/constants.dart' as constants;
 
 List<Dije> storeListDijes(String arrayDijes) {
   final List<Dije> listaDijes = [];
@@ -17,7 +17,7 @@ List<Dije> storeListDijes(String arrayDijes) {
 
 Future<List<Dije>?> getDijes() async {
   final response = await http.get(
-    Uri.parse('http://$urlDev:4000/api/dijes'),
+    Uri.parse('http://${constants.urlDev}:4000/api/dijes'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

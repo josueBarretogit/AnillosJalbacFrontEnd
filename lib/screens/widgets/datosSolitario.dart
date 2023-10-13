@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:anillos_jalbac_flutter/model/solitario.dart';
 
-final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
+import 'package:anillos_jalbac_flutter/constants.dart' as constants;
 
 List<Solitario> storeListSolitarios(String arraySolitarios) {
   final List<Solitario> listaSolitarios = [];
@@ -35,7 +35,7 @@ Future<Solitario> getSolitario(int id) async {
 
 Future<List<Solitario>?> getSolitarios() async {
   final response = await http.get(
-    Uri.parse('http://$urlDev:4000/api/solitarios'),
+    Uri.parse('http://${constants.urlDev}:4000/api/solitarios'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

@@ -2,7 +2,7 @@ import 'package:anillos_jalbac_flutter/providers/joyaProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosSolitario.dart';
-import 'package:flutter/foundation.dart';
+import 'package:anillos_jalbac_flutter/constants.dart' as constants;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,6 @@ class _CartaConInfoState extends State<CartaConInfo> {
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
 
-    final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
     final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
 
     return Wrap(
@@ -38,7 +37,7 @@ class _CartaConInfoState extends State<CartaConInfo> {
           child: SizedBox(
             width: widthsize,
             child: Image.network(
-              'http://$urlDev:4000/${widget.joya.foto}',
+              'http://${constants.urlDev}:4000/${widget.joya.foto}',
               fit: BoxFit.fill,
               repeat: ImageRepeat.noRepeat,
             ),
