@@ -69,52 +69,49 @@ class DatosAnillo extends StatefulWidget {
 class _DatosAnilloState extends State<DatosAnillo> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              const Expanded(child: Text("Nombre : ")),
-              Expanded(child: Text(widget.anillo.nombre)),
-            ],
-          ),
-          Row(
-            children: [
-              const Expanded(child: Text("Talla: ")),
-              Expanded(child: Text(widget.anillo.talla)),
-            ],
-          ),
-          Row(
-            children: [
-              const Expanded(child: Text("Peso oro: ")),
-              Expanded(child: Text(widget.anillo.pesoOro)),
-            ],
-          ),
-          Row(
-            children: [
-              const Expanded(child: Text("Peso plata: ")),
-              Expanded(child: Text(widget.anillo.pesoPlata)),
-            ],
-          ),
-          Row(
-            children: [
-              const Expanded(child: Text("Referencia : ")),
-              Expanded(child: Text(widget.anillo.referencia)),
-            ],
-          ),
-          Row(
-            children: [
-              const Expanded(
-                child: Text("Categoria: "),
-              ),
-              Expanded(child: Text(widget.anillo.categoria)),
-            ],
-          )
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            const Expanded(child: Text("Nombre : ")),
+            Expanded(child: Text(widget.anillo.nombre)),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(child: Text("Talla: ")),
+            Expanded(child: Text(widget.anillo.talla)),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(child: Text("Peso oro: ")),
+            Expanded(child: Text(widget.anillo.pesoOro)),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(child: Text("Peso plata: ")),
+            Expanded(child: Text(widget.anillo.pesoPlata)),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(child: Text("Referencia : ")),
+            Expanded(child: Text(widget.anillo.referencia)),
+          ],
+        ),
+        Row(
+          children: [
+            const Expanded(
+              child: Text("Categoria: "),
+            ),
+            Expanded(child: Text(widget.anillo.categoria)),
+          ],
+        )
+      ],
     );
   }
 }

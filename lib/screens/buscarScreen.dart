@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/paginationWidget.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 class BuscarScreen extends StatefulWidget {
   final String appBarTitle;
@@ -28,23 +29,6 @@ class _BuscarScreenState extends State<BuscarScreen> {
   bool isRefreshed = false;
 
   late Future<dynamic> futureJoyas;
-
-  List<dynamic>? filterData(
-      String searchTerm, List<dynamic> data, String joya) {
-    if (searchTerm.toLowerCase().isEmpty) {
-      return data;
-    }
-
-    searchTerm = searchTerm.toLowerCase();
-
-    if (joya == 'nombre') {
-      return filtrarPorAnillo(data as List<Anillo>, searchTerm);
-    } else if (joya == 'solitario') {
-      return filtrarPorSolitario(data as List<Solitario>, searchTerm);
-    } else {
-      return filtrarPorDije(data as List<Dije>, searchTerm);
-    }
-  }
 
   bool updatedPagination = false;
   final numItemsPerPage = 3;
@@ -76,9 +60,26 @@ class _BuscarScreenState extends State<BuscarScreen> {
     }
   }
 
+  void filterData(String searchTerm, List<dynamic> data, String joya) {
+    searchTerm = searchTerm.toLowerCase();
+    if (joya == 'nombre') {
+      cantPages = ((data.length) / numItemsPerPage).ceil();
+      datosCopy =
+          filtrarPorAnillo(data as List<Anillo>, searchTerm) as List<Anillo>;
+
+      cantPages = ((datosCopy.length) / numItemsPerPage).ceil();
+    } else if (joya == 'solitario') {
+      datosCopy = filtrarPorSolitario(data as List<Solitario>, searchTerm)
+          as List<Solitario>;
+    } else {
+      datosCopy = filtrarPorDije(data as List<Dije>, searchTerm) as List<Dije>;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
@@ -104,16 +105,14 @@ class _BuscarScreenState extends State<BuscarScreen> {
                         ? getSolitarios()
                         : getDijes(),
                 builder: (context, snapshot) {
-                  String joya = joyaProvider.getJoya;
                   if (snapshot.hasData) {
                     final searchTerm = Provider.of<SearchQueryProvider>(context)
                         .searchedQueried;
-                    List<dynamic> datos =
-                        filterData(searchTerm, snapshot.data, joya)
-                            as List<dynamic>;
+
+                    String joya = joyaProvider.getJoya;
 
                     if (!updatedPagination) {
-                      startPagination(datos);
+                      startPagination(snapshot.data);
                     }
 
                     return Wrap(
@@ -122,7 +121,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
                       alignment: WrapAlignment.center,
                       children: [
                         const Searchbar(),
-                        if (datos.isEmpty)
+                        if (snapshot.data.isEmpty)
                           const Text('No se encontro datos')
                         else
                           ...datosCopy
@@ -134,7 +133,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
                         PaginationComponent(
                           cantPages: cantPages,
                           onUpdatePagination: updatePagination,
-                          datos: datos,
+                          datos: snapshot.data,
                         ),
                       ],
                     );

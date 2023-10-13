@@ -24,46 +24,46 @@ class _CartaConInfoState extends State<CartaConInfo> {
 
     final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
 
-    return Wrap(
-      alignment: WrapAlignment.center,
-      children: [
-        ConstrainedBox(
-          constraints: const BoxConstraints(
-            minWidth: 200,
-            maxWidth: 350,
-            minHeight: 290,
-            maxHeight: 300,
-          ),
-          child: SizedBox(
-            width: widthsize,
-            child: Image.network(
-              'http://${constants.urlDev}:4000/${widget.joya.foto}',
-              fit: BoxFit.fill,
-              repeat: ImageRepeat.noRepeat,
+    return Card(
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: 200,
+              maxWidth: 350,
+              maxHeight: 400,
+            ),
+            child: SizedBox(
+              width: widthsize,
+              child: Image.network(
+                'http://${constants.urlDev}:4000/${widget.joya.foto}',
+                fit: BoxFit.fill,
+                repeat: ImageRepeat.noRepeat,
+              ),
             ),
           ),
-        ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(
-            minWidth: 200,
-            maxWidth: 350,
-            minHeight: 300,
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: 200,
+              maxWidth: 350,
+              minHeight: 300,
+            ),
+            child: Container(
+              width: widthsize,
+              child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: joyaProvider.getJoya == 'nombre'
+                      ? DatosAnillo(
+                          anillo: widget.joya,
+                        )
+                      : joyaProvider.getJoya == 'solitario'
+                          ? DatosSolitario(solitario: widget.joya)
+                          : DatosDije(dije: widget.joya)),
+            ),
           ),
-          child: Container(
-            color: Colors.grey[900],
-            width: widthsize,
-            child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: joyaProvider.getJoya == 'nombre'
-                    ? DatosAnillo(
-                        anillo: widget.joya,
-                      )
-                    : joyaProvider.getJoya == 'solitario'
-                        ? DatosSolitario(solitario: widget.joya)
-                        : DatosDije(dije: widget.joya)),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

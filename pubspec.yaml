@@ -40,6 +40,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   provider: ^6.0.5
   pagination_flutter: ^0.0.8
+  flutter_hooks: ^0.20.3
 
 dev_dependencies:
   flutter_test:
