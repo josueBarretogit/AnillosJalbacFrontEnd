@@ -1,3 +1,4 @@
+import 'package:anillos_jalbac_flutter/providers/joyaProvider.dart';
 import 'package:anillos_jalbac_flutter/providers/searchQueyProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:pagination_flutter/pagination.dart';
@@ -24,6 +25,9 @@ class _PaginationComponentState extends State<PaginationComponent> {
   Widget build(BuildContext context) {
     final SearchQueryProvider searchProvider =
         Provider.of<SearchQueryProvider>(context);
+
+    final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
+
     return Pagination(
       numOfPages: widget.cantPages,
       selectedPage: pageSelected,

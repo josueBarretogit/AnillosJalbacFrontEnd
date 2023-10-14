@@ -36,44 +36,30 @@ class _BuscarScreenState extends State<BuscarScreen> {
 
   List<dynamic> datosCopy = [];
 
-  void updatePagination(int page, List<dynamic>? datos) {
+  List<dynamic> startPagination(List<dynamic> datos) {
+    cantPages = ((datos.length) / numItemsPerPage).ceil();
+    if (numItemsPerPage > datos.length) {
+      return datos;
+    } else {
+      return datos.sublist(0, numItemsPerPage);
+    }
+  }
+
+  List<dynamic>? datos;
+
+  void updatePagination(int page, List<dynamic>? data) {
     final from = (page - 1) * numItemsPerPage;
     final end = page * numItemsPerPage;
-    final minimoItemsShown = end - datos!.length;
+    final minimoItemsShown = end - data!.length;
     setState(() {
-      cantPages = ((datos.length) / numItemsPerPage).ceil();
-      if (end > datos.length) {
-        datosCopy = datos.sublist(from, end - minimoItemsShown);
+      cantPages = ((data.length) / numItemsPerPage).ceil();
+      if (end > data.length) {
+        datos = data.sublist(from, end - minimoItemsShown);
       } else {
-        datosCopy = datos.sublist(from, end);
+        datos = data.sublist(from, end);
       }
       updatedPagination = true;
     });
-  }
-
-  void startPagination(List<dynamic> datos) {
-    cantPages = ((datos.length) / numItemsPerPage).ceil();
-    if (numItemsPerPage > datos.length) {
-      datosCopy = datos;
-    } else {
-      datosCopy = datos.sublist(0, numItemsPerPage);
-    }
-  }
-
-  void filterData(String searchTerm, List<dynamic> data, String joya) {
-    searchTerm = searchTerm.toLowerCase();
-    if (joya == 'nombre') {
-      cantPages = ((data.length) / numItemsPerPage).ceil();
-      datosCopy =
-          filtrarPorAnillo(data as List<Anillo>, searchTerm) as List<Anillo>;
-
-      cantPages = ((datosCopy.length) / numItemsPerPage).ceil();
-    } else if (joya == 'solitario') {
-      datosCopy = filtrarPorSolitario(data as List<Solitario>, searchTerm)
-          as List<Solitario>;
-    } else {
-      datosCopy = filtrarPorDije(data as List<Dije>, searchTerm) as List<Dije>;
-    }
   }
 
   @override
@@ -105,15 +91,15 @@ class _BuscarScreenState extends State<BuscarScreen> {
                         ? getSolitarios()
                         : getDijes(),
                 builder: (context, snapshot) {
+                  String joya = joyaProvider.getJoya;
                   if (snapshot.hasData) {
-                    final searchTerm = Provider.of<SearchQueryProvider>(context)
-                        .searchedQueried;
+                    final searchTerm =
+                        Provider.of<SearchQueryProvider>(context);
 
-                    String joya = joyaProvider.getJoya;
+                    datos = searchTerm.filterData(
+                        searchTerm.searchedQueried, snapshot.data, joya);
 
-                    if (!updatedPagination) {
-                      startPagination(snapshot.data);
-                    }
+                    datos = startPagination(datos as List<dynamic>);
 
                     return Wrap(
                       runSpacing: 30,
@@ -121,10 +107,10 @@ class _BuscarScreenState extends State<BuscarScreen> {
                       alignment: WrapAlignment.center,
                       children: [
                         const Searchbar(),
-                        if (snapshot.data.isEmpty)
+                        if (datos!.isEmpty)
                           const Text('No se encontro datos')
                         else
-                          ...datosCopy
+                          ...datos!
                               .map((joya) => CartaConInfo(
                                     urlImage: 'img/anilloNombre1.jpg',
                                     joya: joya,
@@ -133,7 +119,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
                         PaginationComponent(
                           cantPages: cantPages,
                           onUpdatePagination: updatePagination,
-                          datos: snapshot.data,
+                          datos: datos,
                         ),
                       ],
                     );

@@ -47,7 +47,7 @@ Future<List<Anillo>?> getAnillos() async {
   }
 }
 
-List<Anillo>? filtrarPorAnillo(List<Anillo>? listAnillos, String searchTerm) {
+List<Anillo> filtrarPorAnillo(List<Anillo>? listAnillos, String searchTerm) {
   return listAnillos!.where((Anillo anillo) {
     return anillo.pesoOro.toLowerCase() == searchTerm ||
         anillo.pesoPlata.toLowerCase() == searchTerm ||
