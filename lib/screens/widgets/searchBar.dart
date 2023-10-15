@@ -51,7 +51,6 @@ class _SearchbarState extends State<Searchbar> {
                       controller: searchQueryController,
                       onChanged: (String text) {
                         searchProvider.setSearchQuery(text);
-                        if (text.isEmpty) {}
                       },
                       decoration: InputDecoration(
                         hintText: hintText,

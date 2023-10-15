@@ -1,9 +1,5 @@
 import 'package:anillos_jalbac_flutter/model/Anillo.dart';
-import 'package:anillos_jalbac_flutter/model/dije.dart';
-import 'package:anillos_jalbac_flutter/model/solitario.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
-import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
-import 'package:anillos_jalbac_flutter/screens/widgets/datosSolitario.dart';
 import 'package:flutter/material.dart';
 
 class SearchQueryProvider extends ChangeNotifier {
@@ -12,8 +8,17 @@ class SearchQueryProvider extends ChangeNotifier {
   String searchTerm = '';
   String get searchedQueried => searchTerm;
 
+  int pageSelected = 1;
+
+  int get currentPageSelected => pageSelected;
+
   bool searchTermIsEmpty = false;
   bool get isSearchTermEmpty => searchTermIsEmpty;
+
+  void setPageSelected(int page) {
+    pageSelected = page;
+    notifyListeners();
+  }
 
   void setSearchQuery(String search) {
     searchTerm = search;
@@ -28,14 +33,12 @@ class SearchQueryProvider extends ChangeNotifier {
   List<dynamic>? filterData(
       String searchTerm, List<dynamic> data, String joya) {
     if (searchTerm.isEmpty) {
-      notifyListeners();
       return data;
     }
 
     searchTerm = searchTerm.toLowerCase();
 
     if (joya == 'nombre') {
-      notifyListeners();
       return filtrarPorAnillo(data as List<Anillo>, searchTerm);
     }
   }

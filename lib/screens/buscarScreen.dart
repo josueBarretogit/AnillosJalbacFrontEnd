@@ -34,15 +34,15 @@ class _BuscarScreenState extends State<BuscarScreen> {
   final numItemsPerPage = 3;
   int cantPages = 1;
 
-  List<dynamic> datosCopy = [];
-
-  List<dynamic> startPagination(List<dynamic> datos) {
-    cantPages = ((datos.length) / numItemsPerPage).ceil();
-    if (numItemsPerPage > datos.length) {
-      return datos;
+  void startPagination(List<dynamic> data) {
+    cantPages = ((data.length) / numItemsPerPage).ceil();
+    if (numItemsPerPage > data.length) {
+      datos = data;
     } else {
-      return datos.sublist(0, numItemsPerPage);
+      datos = data.sublist(0, numItemsPerPage);
     }
+
+    updatedPagination = true;
   }
 
   List<dynamic>? datos;
@@ -58,13 +58,37 @@ class _BuscarScreenState extends State<BuscarScreen> {
       } else {
         datos = data.sublist(from, end);
       }
-      updatedPagination = true;
     });
   }
 
+  List<dynamic>? filterData(
+      String searchTerm, List<dynamic> data, String joya) {
+    if (searchTerm.isEmpty) {
+      setState(() {
+        datosFiltrado = data;
+      });
+    }
+
+    searchTerm = searchTerm.toLowerCase();
+
+    setState(() {
+      datosFiltrado = filtrarPorAnillo(data as List<Anillo>, searchTerm);
+    });
+  }
+
+  List<dynamic>? datosFiltrado;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final searchQueryController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
+    String hintText = joyaProvider.getJoya == 'nombre'
+        ? 'Ej: Maria'
+        : joyaProvider.getJoya == 'solitario'
+            ? 'Ej: forma piedra cuadrada'
+            : 'Ej: 5mm alto';
+
+    final widthsize = MediaQuery.sizeOf(context).width;
 
     return SafeArea(
       child: Scaffold(
@@ -93,20 +117,63 @@ class _BuscarScreenState extends State<BuscarScreen> {
                 builder: (context, snapshot) {
                   String joya = joyaProvider.getJoya;
                   if (snapshot.hasData) {
-                    final searchTerm =
+                    final searchProvider =
                         Provider.of<SearchQueryProvider>(context);
 
-                    datos = searchTerm.filterData(
-                        searchTerm.searchedQueried, snapshot.data, joya);
-
-                    datos = startPagination(datos as List<dynamic>);
+                    if (!updatedPagination) {
+                      startPagination(snapshot.data);
+                    }
 
                     return Wrap(
                       runSpacing: 30,
                       spacing: 30,
                       alignment: WrapAlignment.center,
                       children: [
-                        const Searchbar(),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 25, 5, 5),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: TextButton(
+                                          child: Text('Buscar'),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 2,
+                                      child: SizedBox(
+                                        height: 40,
+                                        width: widthsize / 2,
+                                        child: TextField(
+                                          controller: searchQueryController,
+                                          onChanged: (String text) {
+                                            searchProvider.setSearchQuery(text);
+                                            filterData(
+                                                text, snapshot.data, joya);
+                                          },
+                                          decoration: InputDecoration(
+                                            hintText: hintText,
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         if (datos!.isEmpty)
                           const Text('No se encontro datos')
                         else
@@ -117,10 +184,10 @@ class _BuscarScreenState extends State<BuscarScreen> {
                                   ))
                               .toList(),
                         PaginationComponent(
-                          cantPages: cantPages,
-                          onUpdatePagination: updatePagination,
-                          datos: datos,
-                        ),
+                            key: Key(searchProvider.searchedQueried),
+                            cantPages: cantPages,
+                            onUpdatePagination: updatePagination,
+                            datos: datos ?? snapshot.data),
                       ],
                     );
                   } else if (snapshot.hasError) {

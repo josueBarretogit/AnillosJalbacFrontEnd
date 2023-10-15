@@ -19,24 +19,21 @@ class PaginationComponent extends StatefulWidget {
 }
 
 class _PaginationComponentState extends State<PaginationComponent> {
-  int pageSelected = 1;
-
   @override
   Widget build(BuildContext context) {
     final SearchQueryProvider searchProvider =
         Provider.of<SearchQueryProvider>(context);
 
-    final JoyaProvider joyaProvider = Provider.of<JoyaProvider>(context);
-
     return Pagination(
       numOfPages: widget.cantPages,
-      selectedPage: pageSelected,
+      selectedPage: searchProvider.currentPageSelected,
       pagesVisible: 3,
       onPageChanged: (int page) {
         setState(() {
-          pageSelected = page;
-          widget.onUpdatePagination(page, widget.datos);
+          searchProvider.setPageSelected(page);
         });
+
+        widget.onUpdatePagination(page, widget.datos);
       },
       nextIcon: Icon(
         Icons.arrow_forward_ios,
