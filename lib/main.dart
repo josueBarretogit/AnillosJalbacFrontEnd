@@ -34,14 +34,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text("Anillos Jalbac")),
+        appBar: AppBar(title: const Text("Anillos Jalbac")),
         backgroundColor: Colors.black,
-        body: SafeArea(
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints boxConstraints) {
-              return MobileView();
-            },
-          ),
+        body: const SafeArea(
+          child: MobileView(),
         ),
       ),
     );

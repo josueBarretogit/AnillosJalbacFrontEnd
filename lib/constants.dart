@@ -7,7 +7,7 @@ const List<String> listTitles = [
   'Solitarios',
 ];
 
-final urlDev = '${kIsWeb ? "localhost" : "10.0.2.2"}';
+const urlDev = kIsWeb ? "localhost" : "10.0.2.2";
 
 final List<CartaSeleccion> listCards = listTitles.map((title) {
   return CartaSeleccion(title);

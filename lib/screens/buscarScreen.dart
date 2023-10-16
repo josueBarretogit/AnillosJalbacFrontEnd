@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/paginationWidget.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 class BuscarScreen extends StatefulWidget {
   final String appBarTitle;
@@ -31,7 +30,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
   late Future<dynamic> futureJoyas;
 
   bool updatedPagination = false;
-  final numItemsPerPage = 3;
+  int numItemsPerPage = 3;
   int cantPages = 1;
 
   void startPagination(List<dynamic> data) {
@@ -71,9 +70,20 @@ class _BuscarScreenState extends State<BuscarScreen> {
 
     searchTerm = searchTerm.toLowerCase();
 
-    setState(() {
-      datosFiltrado = filtrarPorAnillo(data as List<Anillo>, searchTerm);
-    });
+    if (joya == 'nombre') {
+      setState(() {
+        datosFiltrado = filtrarPorAnillo(data as List<Anillo>, searchTerm);
+      });
+    } else if (joya == 'solitario') {
+      setState(() {
+        datosFiltrado =
+            filtrarPorSolitario(data as List<Solitario>, searchTerm);
+      });
+    } else {
+      setState(() {
+        datosFiltrado = filtrarPorDije(data as List<Dije>, searchTerm);
+      });
+    }
   }
 
   List<dynamic>? datosFiltrado;
@@ -89,6 +99,11 @@ class _BuscarScreenState extends State<BuscarScreen> {
             : 'Ej: 5mm alto';
 
     final widthsize = MediaQuery.sizeOf(context).width;
+    if (widthsize >= 710) {
+      setState(() {
+        numItemsPerPage = 4;
+      });
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -142,10 +157,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
                                       flex: 1,
                                       child: Padding(
                                         padding: EdgeInsets.all(8.0),
-                                        child: TextButton(
-                                          child: Text('Buscar'),
-                                          onPressed: () {},
-                                        ),
+                                        child: Text('Buscar'),
                                       ),
                                     ),
                                     Flexible(
@@ -159,6 +171,8 @@ class _BuscarScreenState extends State<BuscarScreen> {
                                             searchProvider.setSearchQuery(text);
                                             filterData(
                                                 text, snapshot.data, joya);
+                                            updatePagination(1, datosFiltrado);
+                                            searchProvider.setPageSelected(1);
                                           },
                                           decoration: InputDecoration(
                                             hintText: hintText,
@@ -187,7 +201,7 @@ class _BuscarScreenState extends State<BuscarScreen> {
                             key: Key(searchProvider.searchedQueried),
                             cantPages: cantPages,
                             onUpdatePagination: updatePagination,
-                            datos: datos ?? snapshot.data),
+                            datos: datosFiltrado ?? snapshot.data),
                       ],
                     );
                   } else if (snapshot.hasError) {

@@ -32,14 +32,26 @@ class _CartaConInfoState extends State<CartaConInfo> {
             constraints: const BoxConstraints(
               minWidth: 200,
               maxWidth: 350,
-              maxHeight: 400,
+              maxHeight: 300,
             ),
             child: SizedBox(
               width: widthsize,
-              child: Image.network(
-                'http://${constants.urlDev}:4000/${widget.joya.foto}',
-                fit: BoxFit.fill,
-                repeat: ImageRepeat.noRepeat,
+              height: 300,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  bottomLeft: widthsize >= 710
+                      ? const Radius.circular(10)
+                      : const Radius.circular(0),
+                  topRight: widthsize <= 710
+                      ? const Radius.circular(10)
+                      : const Radius.circular(0),
+                ),
+                child: Image.network(
+                  'http://${constants.urlDev}:4000/${widget.joya.foto}',
+                  fit: BoxFit.fill,
+                  repeat: ImageRepeat.noRepeat,
+                ),
               ),
             ),
           ),
@@ -49,7 +61,7 @@ class _CartaConInfoState extends State<CartaConInfo> {
               maxWidth: 350,
               minHeight: 300,
             ),
-            child: Container(
+            child: SizedBox(
               width: widthsize,
               child: Padding(
                   padding: const EdgeInsets.all(15.0),
