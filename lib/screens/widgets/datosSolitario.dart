@@ -35,7 +35,7 @@ Future<Solitario> getSolitario(int id) async {
 
 Future<List<Solitario>?> getSolitarios() async {
   final response = await http.get(
-    Uri.parse('http://${constants.urlDev}:4000/api/solitarios'),
+    Uri.parse('https://anillosjalbacapi.onrender.com/api/solitarios'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -89,37 +89,37 @@ class rowinColumn {
     return [
       Row(
         children: [
-          Expanded(child: Text("Talla: ")),
+          const Expanded(child: Text("Talla: ")),
           Expanded(child: Text(solitario.talla)),
         ],
       ),
       Row(
         children: [
-          Expanded(child: Text("Tamaño piedra")),
+          const Expanded(child: Text("Tamaño piedra")),
           Expanded(child: Text(solitario.tamanoPiedra)),
         ],
       ),
       Row(
         children: [
-          Expanded(child: Text("Forma piedra: ")),
+          const Expanded(child: Text("Forma piedra: ")),
           Expanded(child: Text(solitario.formaPiedra)),
         ],
       ),
       Row(
         children: [
-          Expanded(child: Text("Referencia : ")),
+          const Expanded(child: Text("Referencia : ")),
           Expanded(child: Text(solitario.referencia)),
         ],
       ),
       Row(
         children: [
-          Expanded(child: Text("Peso oro: ")),
+          const Expanded(child: Text("Peso oro: ")),
           Expanded(child: Text(solitario.pesoOro)),
         ],
       ),
       Row(
         children: [
-          Expanded(child: Text("Peso plata : ")),
+          const Expanded(child: Text("Peso plata : ")),
           Expanded(child: Text(solitario.pesoPlata)),
         ],
       ),

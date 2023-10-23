@@ -48,7 +48,7 @@ class _CartaConInfoState extends State<CartaConInfo> {
                       : const Radius.circular(0),
                 ),
                 child: Image.network(
-                  'http://${constants.urlDev}:4000/${widget.joya.foto}',
+                  'https://anillosjalbacapi.onrender.com/${widget.joya.foto}',
                   fit: BoxFit.fill,
                   repeat: ImageRepeat.noRepeat,
                 ),

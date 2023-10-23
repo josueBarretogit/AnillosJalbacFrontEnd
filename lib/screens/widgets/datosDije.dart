@@ -17,7 +17,7 @@ List<Dije> storeListDijes(String arrayDijes) {
 
 Future<List<Dije>?> getDijes() async {
   final response = await http.get(
-    Uri.parse('http://${constants.urlDev}:4000/api/dijes'),
+    Uri.parse('https://anillosjalbacapi.onrender.com/api/dijes'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
