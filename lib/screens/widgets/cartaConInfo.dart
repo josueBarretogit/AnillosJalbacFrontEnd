@@ -2,7 +2,6 @@ import 'package:anillos_jalbac_flutter/providers/joyaProvider.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosAnillo.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosDije.dart';
 import 'package:anillos_jalbac_flutter/screens/widgets/datosSolitario.dart';
-import 'package:anillos_jalbac_flutter/constants.dart' as constants;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +47,7 @@ class _CartaConInfoState extends State<CartaConInfo> {
                       : const Radius.circular(0),
                 ),
                 child: Image.network(
-                  'https://anillosjalbacapi.onrender.com/${widget.joya.foto}',
+                  '${widget.joya.foto}',
                   fit: BoxFit.fill,
                   repeat: ImageRepeat.noRepeat,
                 ),

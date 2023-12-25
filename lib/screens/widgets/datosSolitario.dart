@@ -25,7 +25,6 @@ Future<Solitario> getSolitario(int id) async {
       'id': id,
     }),
   );
-
   if (response.statusCode == 200) {
     return Solitario.fromJson(jsonDecode(response.body));
   } else {

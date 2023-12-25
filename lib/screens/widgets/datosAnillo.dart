@@ -34,7 +34,7 @@ Future<Anillo> getAnillo(int id) async {
 
 Future<List<Anillo>?> getAnillos() async {
   final response = await http.get(
-    Uri.parse('https://anillosjalbacapi.onrender.com/api/anillos'),
+    Uri.parse('https://anillosjalbacapi.onrender.com/api/nombres'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
